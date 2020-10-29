@@ -1,0 +1,1 @@
+// onclick tag data fra input og lav dem om til en string (JSON.stringify()) og export til data base 

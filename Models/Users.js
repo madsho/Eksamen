@@ -24,3 +24,4 @@ class user { //Super class
     }
 };
 
+// Log in and log out 
