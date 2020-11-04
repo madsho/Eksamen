@@ -3,8 +3,13 @@ let router = express.Router();
 
 // info about match and users are imported from the models files 
 const Users = require("../Models/Users");
-const { readSync } = require("fs");
 
+var Firstname = document.getElementById("firstname");
+var LastName = document.getElementById("lastname");
+var Email = document.getElementById("email");
+var Phone = document.getElementById("phone");
+var SignUserName = document.getElementById("signUsername");
+var SignPassWord = document.getElementById("signPassword");
 
 
 
@@ -13,6 +18,7 @@ router.get("/", (req, res) =>{
     res.json(Users.myUser) // Shows info about the two users
 });
 router.post("/",(req,res)=> {
+    saveData()
     res.json({"message" : "User has been created"}) // shows the message that a user had been created 
 });
 router.put("/", (req,res) => {
