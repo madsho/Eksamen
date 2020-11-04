@@ -1,17 +1,7 @@
 const express = require("express");
-let router = express.Router();
 
 // info about match and users are imported from the models files 
 const Users = require("../Models/Users");
-
-var Firstname = document.getElementById("firstname");
-var LastName = document.getElementById("lastname");
-var Email = document.getElementById("email");
-var Phone = document.getElementById("phone");
-var SignUserName = document.getElementById("signUsername");
-var SignPassWord = document.getElementById("signPassword");
-
-
 
 //CRUD endpoints for both users
 router.get("/", (req, res) =>{
@@ -30,7 +20,6 @@ router.delete("/", (req,res) => {
     Users.newUsers = [];
     res.json({"message": "Deleted Users"})
 });
-
 
 
 module.exports = router 
