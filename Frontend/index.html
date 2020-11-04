@@ -10,24 +10,24 @@
     <div id="signUp">
         <h2>Sign up for a new account</h2>
         <label> Firstname:</label> </br> 
-        <input type="text" placeholder="Firstname"> </br> 
+        <input id="firstname" type="text" placeholder="Firstname"> </br> 
     </br> 
         <label> Lastname:</label></br> 
-        <input type = "text" placeholder="Lastname"></br> 
+        <input id="lastname" type = "text" placeholder="Lastname"></br> 
     </br> 
         <label>Email:</label></br> 
-        <input type = "text" placeholder="Email"></br> 
+        <input id="email" type = "text" placeholder="Email"></br> 
     </br> 
         <label> Phone: </label></br> 
-        <input type="number" placeholder="Phone number"></br> 
+        <input id="phone" type="number" placeholder="Phone number"></br> 
     </br> 
         <label>Username:</label></br> 
-        <input type="text" placeholder="Username"></br> 
+        <input id = "signUsername" type="text" placeholder="Username"></br> 
     </br> 
         <label>Password:</label></br> 
-        <input type="text" placeholder="Password"></br> 
+        <input id = "signPassword" type="text" placeholder="Password"></br> 
     </br> 
-        <button type = "submit"> Create account </button>
+        <button id="signUpBut" type = "submit" onclick="saveData()"> Create account </button>
 
     </div>
     
@@ -35,12 +35,13 @@
         <h2>Log in</h2>
     </br> 
     <label>Username:</label></br> 
-    <input type="text" placeholder="Username"></br> 
+    <input id="username" type="text" placeholder="Username"></br> 
 </br> 
     <label>Password:</label></br> 
-    <input type="text" placeholder="Password"></br> 
+    <input id="password" type="text" placeholder="Password"></br> 
 </br> 
-    <button type = "submit"> Log in </button>
+    <button id = "logInBut" type = "submit"> Log in </button>
     </div>
+    <script src="index.js"></script>
 </body>
 </html>
