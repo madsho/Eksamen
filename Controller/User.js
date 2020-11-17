@@ -1,12 +1,22 @@
-function saveData() {
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem();
-      localStorage.setItem();
-      localStorage.setItem();
-      alert('data added in localstorage');
-    } else {
-      alert('local storage not supported');
-    }
-  }
+const { UserClass } = require("../Models/Users")
+const { userRoutes } = require ("../app.js")
 
-  // bliver kaldt fra routes
+function create_user (){
+  let userID = new UserClass.User (email, username ,password, firstName, lastName, dob, gender, interests)
+
+}
+
+function read_user (){
+
+}
+
+function update_user (){
+
+}
+
+function delete_user () {
+
+}
+
+exports.Users = Users
+
