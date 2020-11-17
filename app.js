@@ -9,13 +9,19 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-const users = require ("./Routes/Users.js")(app, fs);
+const userRoutes = require ("./Routes/Users.js");
 const interests = require ("./Routes/Interests");
-const match = require ("./Routes/Match")
+const match = require ("./Routes/Match");
+const routes = require("./Routes/Routes.js")(app, fs);
+
 
 app.get('/',(req, res) =>{
     res.send("We are live boizz")
 });
+
+app.get ("/users", (req, res)=>{
+    res.send (userRoutes)
+})
 
 
 //CRUD Api-endpoints for users, interests and match
