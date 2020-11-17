@@ -1,20 +1,24 @@
 {
-    "1": {
-      "name": "king arthur",
-      "password": "password1",
-      "profession": "king",
-      "id": 1
-    },
-    "2": {
-      "name": "rob kendal",
-      "password": "password3",
-      "profession": "code fiddler",
-      "id": 2
-    },
-    "3": {
-      "name": "teresa may",
-      "password": "password2",
-      "profession": "brexit destroyer",
-      "id": 6
-    }
+  "2": {
+    "name": "rob kendal",
+    "password": "password3",
+    "profession": "code fiddler",
+    "id": 2
+  },
+  "3": {
+    "name": "teresa may",
+    "password": "password2",
+    "profession": "brexit destroyer",
+    "id": 6
+  },
+  "4": {
+    "email": "Mads",
+    "username": "MAds",
+    "password": "Mads123",
+    "firstname ": "hej",
+    "lastname": "nej",
+    "dob": "okay",
+    "gender": "dd",
+    "interests": "dd"
   }
+}
