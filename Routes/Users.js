@@ -49,12 +49,12 @@ const userRoutes = (app, fs) => {
           const newUserId = Object.keys(data).length + 1;
          
           // add the new user
-          newUserId = req.body;
+          data [newUserId] = req.body;
       
           writeFile(JSON.stringify(data, null, 2), () => {
             res.status(200).json ({
               message: 'new user added',
-              user = data[newUserId]
+              user: data[newUserId]
             });
           });
         }, true);
