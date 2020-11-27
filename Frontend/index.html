@@ -7,45 +7,68 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <form id = "signUps" action= " http://localhost:5000/Users/register" method="POST">
     <div id="signUp">
         <h2>Sign up for a new account</h2>
         <label> Firstname:</label> </br> 
-        <input id="firstname" type="text" placeholder="Firstname"> </br> 
+        <input name="firstname" id="firstname" type="text" placeholder="Firstname" required> </br> 
     </br> 
         <label> Lastname:</label></br> 
-        <input id="lastname" type = "text" placeholder="Lastname"></br> 
+        <input name="lastname" id="lastname" type = "text" placeholder="Lastname" required></br> 
     </br> 
         <label>Email:</label></br> 
-        <input id="email" type = "text" placeholder="Email"></br> 
+        <input name="email" id="email" type = "text" placeholder="Email" required></br> 
     </br> 
         <label> Phone: </label></br> 
-        <input id="phone" type="number" placeholder="Phone number"></br> 
+        <input name="phone" id="phone" type="number" placeholder="Phone number" required></br> 
     </br> 
         <label>Username:</label></br> 
-        <input id = "signUsername" type="text" placeholder="Username"></br> 
+        <input name="signusername" id = "signUsername" type="text" placeholder="Username" required></br> 
     </br> 
         <label>Password:</label></br> 
-        <input id = "signPassword" type="text" placeholder="Password"></br> 
+        <input name="signpassword" id = "signPassword" type="text" placeholder="Password" required></br> 
     </br> 
-        <label>Interested Gender:</label></br> 
-        <input id = "interests" type="text" placeholder="Interested gender"></br> 
+        <label>What gender are you interested in:</label></br>  
+        <select name ="interest" required>
+            <option>---</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select> 
     </br> 
-        <button id="signUpBut" type = "submit" onclick="saveData()"> Create account </button>
-
+    </br> 
+    <label>Date og birth</label></br> 
+        <input name="Dob" id = "interests" type="date" required></br> 
+    </br> 
+    <label>Your Gender:</label></br> 
+        <select name ="gender" required>
+            <option>---</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select> 
+    </br> 
+    </br> 
+        <button id="signUpBut" type = "submit" onclick= "saveData()"> Create account </button>
     </div>
-    
+</form>
+
+
+<form id = "logins" action = "http://localhost:5000/Users" method="GET">
     <div id = "logIn">
         <h2>Log in</h2>
     </br> 
     <label>Username:</label></br> 
-    <input id="username" type="text" placeholder="Username"></br> 
+    <input name = "signInUser" id="username" type="text" placeholder="Username"></br> 
 </br> 
     <label>Password:</label></br> 
-    <input id="password" type="text" placeholder="Password"></br> 
+    <input name = "passUser" id="password" type="text" placeholder="Password"></br> 
 </br> 
-    <button id = "logInBut" type = "submit"> Log in </button>
+    <button id = "logInBut" type = "submit" > Log in </button>
     </div>
+</form>
+
+
     <script src="../Routes/Users.js"></script>
+    <script src="./index.js"></script>
 
 </body>
 </html>

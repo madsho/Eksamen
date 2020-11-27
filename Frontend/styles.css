@@ -2,8 +2,8 @@ body{
     background-color: pink;
 }
 
-#signUp{
-    display: inline-block;
+#signUps{
+    float: left;
     margin-left: 350px;
     vertical-align: top;
     margin-top: 50px;

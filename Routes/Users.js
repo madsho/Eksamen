@@ -1,50 +1,60 @@
 
 const userRoutes = (app, fs) => {
     // variables
-    const dataPath = "./Database/Users/"
+    const dataPath = "./Database/"
     
       // READ
   
-      app.get('/users/:id', (req, res) => {
-        const userId = req.params['id'];
-        fs.readFile(dataPath, "utf8", (err, data) => {
-          if (err){
-            throw err;
-          
-        }
-        res.send(JSON.parse (data));
-      });
-    });
+      app.get('/Users', (req, res) => {
+        
+          fs.readdir(dataPath, (err, files) => {
+            
+          if (err){throw err;} else{
+            files.forEach(file => {
+            fs.readFile(file, (data) =>{
+
+              for (let value of Object.values(data)){
+                 if (value = req.body.signInUser){
+                   res.status(200).send(console.log("sucess"))
+            
+            }}
+          })
+        })
+      }
+    })
+  })
+
+       
 
 
     const userModel = require("../Models/Users.js");
     //Create
-    function saveData(){
-    app.post('/users', (req, res) => {
-       
+  
+    app.post('/Users/register', (req, res) => {
+    
          const newid = Date.now().toString()
          const newuser = new userModel.userClass(
            email = req.body.email,
-           username= req.body.username,
-           password = req.body.password,
+           username= req.body.signusername,
+           password = req.body.signpassword,
            firstName = req.body.firstname,
            lastName = req.body.lastname,
-           dob = req.body.dob,
+           phone = req.body.phone,
+           interest = req.body.interest,
+           dob = req.body.Dob,
            gender = req.body.gender,
         );
+
 
         users = JSON.stringify(newuser, null, 2)
       
           fs.writeFile(dataPath + newid + ".json", users, (err) => {
             if (err) throw err;
-            res.status(200).json({
-              message: 'new user added',
-              
-            });
+            res.status(200).send(alert("Your profile is created and you can now log in"));
           });
         });
 
-      };
+    
 
 
     /*
@@ -74,7 +84,8 @@ const userRoutes = (app, fs) => {
         }, true);
     });
 */
+
+
     };
-    
   
-  module.exports = userRoutes;
+  module.exports = userRoutes; 
