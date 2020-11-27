@@ -1,64 +1,53 @@
 
 const userRoutes = (app, fs) => {
     // variables
-    const dataPath = './Database/users.json';
-  
-    const readFile = (
-        callback,
-        returnJson = false,
-        filePath = dataPath,
-        encoding = 'utf8'
-      ) => {
-        fs.readFile(filePath, encoding, (err, data) => {
-          if (err) {
-            throw err;
-          }
-    
-          callback(returnJson ? JSON.parse(data) : data);
-        });
-      };
-    
-      const writeFile = (
-        fileData,
-        callback,
-        filePath = dataPath,
-        encoding = 'utf8'
-      ) => {
-        fs.writeFile(filePath, fileData, encoding, err => {
-          if (err) {
-            throw err;
-          }
-    
-          callback();
-        });
-      };
+    const dataPath = "./Database/Users/"
     
       // READ
-      // Notice how we can make this 'read' operation much more simple now.
+  
       app.get('/users/:id', (req, res) => {
         const userId = req.params['id'];
-        readFile(data => {
-          res.send(data[userId]);
-        }, true);
+        fs.readFile(dataPath, "utf8", (err, data) => {
+          if (err){
+            throw err;
+          
+        }
+        res.send(JSON.parse (data));
       });
-    
+    });
+
+
+    const userModel = require("../Models/Users.js");
     //Create
+    function saveData(){
     app.post('/users', (req, res) => {
-    
-        readFile(data => {
-          const newUserId = Object.keys(data).length + 1;
-         
-          // add the new user
-          data [newUserId] = req.body;
+       
+         const newid = Date.now().toString()
+         const newuser = new userModel.userClass(
+           email = req.body.email,
+           username= req.body.username,
+           password = req.body.password,
+           firstName = req.body.firstname,
+           lastName = req.body.lastname,
+           dob = req.body.dob,
+           gender = req.body.gender,
+        );
+
+        users = JSON.stringify(newuser, null, 2)
       
-          writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).json ({
+          fs.writeFile(dataPath + newid + ".json", users, (err) => {
+            if (err) throw err;
+            res.status(200).json({
               message: 'new user added',
-              user: data[newUserId]
+              
             });
           });
-        }, true);
-      });
+        });
+
+      };
+
+
+    /*
       //Update
       app.put('/users/:id', (req, res) => {
         readFile(data => {
@@ -84,7 +73,7 @@ const userRoutes = (app, fs) => {
         });
         }, true);
     });
-
+*/
     };
     
   
