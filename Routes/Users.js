@@ -1,24 +1,23 @@
 
 const userRoutes = (app, fs) => {
     // variables
-    const dataPath = "./Database/"
-    
+    const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
+   
       // READ
   
-      app.get('/Users', (req, res) => {
+      app.get('/Users/login', (req, res) => {
         
           fs.readdir(dataPath, (err, files) => {
-            
           if (err){throw err;} else{
             files.forEach(file => {
-            fs.readFile(file, (data) =>{
-
-              for (let value of Object.values(data)){
-                 if (value = req.body.signInUser){
-                   res.status(200).send(console.log("sucess"))
-            
-            }}
+            fs.readFile(dataPath + file, (data) =>{
+                user = JSON.parse(data)
+             // for (value of Object.values(data))
+             if (user = req.body.signInUser){
+              res.status(200).send(console.log("sucess"))
+            } 
           })
+          // login read file 
         })
       }
     })
@@ -32,30 +31,32 @@ const userRoutes = (app, fs) => {
   
     app.post('/Users/register', (req, res) => {
     
-         const newid = Date.now().toString()
-         const newuser = new userModel.userClass(
-           email = req.body.email,
-           username= req.body.signusername,
-           password = req.body.signpassword,
+         const newId = Date.now().toString() //Et ID der bliver tildet. Id'et er Datoen/tiddspunktet profilen er blevet oprettet på
+         const newuser = new userModel.userClass( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
+          id = newId,
+          email = req.body.email,
+           username= req.body.signUsername,
+           password = req.body.signPassword,
            firstName = req.body.firstname,
            lastName = req.body.lastname,
            phone = req.body.phone,
            interest = req.body.interest,
-           dob = req.body.Dob,
+           dob = req.body.dob,
            gender = req.body.gender,
         );
-
-
-        users = JSON.stringify(newuser, null, 2)
-      
-          fs.writeFile(dataPath + newid + ".json", users, (err) => {
+       
+        users = JSON.stringify(newuser, null, 2) //laver de indtastet informationer til en string og derefter sætter dem pænt op med null, 2
+        
+         //Local storage
+        
+          fs.writeFile(dataPath + req.body.signUsername + ".json", users, (err) => { //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind i
             if (err) throw err;
-            res.status(200).send(alert("Your profile is created and you can now log in"));
+          res.status(200).send(users);
           });
-        });
+      });
 
-    
-
+       
+       
 
     /*
       //Update
@@ -87,5 +88,5 @@ const userRoutes = (app, fs) => {
 
 
     };
-  
+
   module.exports = userRoutes; 

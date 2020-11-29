@@ -1,6 +1,7 @@
 class User { //Super class
-    constructor ( email, username ,password, firstName, lastName, phone, interest, dob, gender){
-       this.email = email
+    constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender){
+        this.id = id
+        this.email = email
         this.username = username
         this.password = password
         this.firstName = firstName
@@ -10,16 +11,6 @@ class User { //Super class
         this.dob = dob
         this.gender = gender
         
-        
-       /*
-        this.toJSON = "{" + 
-                "\"email\":\"" + this.email+"\","+
-                "\"username\":\"" + this.username+"\","+
-                "\"password\":\"" + this.firstName+"\","+
-                "\"lastname\":\"" + this.lastName+"\","+
-                "\"dob\":\"" + this.dob+"\","+
-                "\"gender\":\"" + this.gender+"\","+
-                "}"*/
         }
         //Age calculator so the website keeps updating the users age
 };

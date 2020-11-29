@@ -15,7 +15,7 @@ const userRoutes = require("./Routes/Users.js")(app, fs);
 
 
 app.get('/', (req, res) => {
-    res.send('WE live BOIIIIIZ');
+    res.send('We are live');
   });
 
 
@@ -27,6 +27,6 @@ const appRouter = (app,fs)=> {
 
 
 
-const PORT = process.env.PORT || 5000 //Porten er på 3000 
+const PORT = process.env.PORT || 5000 //Porten er på 5000 
 
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));

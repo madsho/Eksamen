@@ -2,18 +2,13 @@ body{
     background-color: pink;
 }
 
-#signUps{
+#signUpForm{
     float: left;
-    margin-left: 350px;
-    vertical-align: top;
-    margin-top: 50px;
+
+
 
 }
 
-#logIn{
+#logInForm{
     display: inline-block;
-    vertical-align: top;
-    margin-top: 50px;
-    margin-left: 50px;
-
 }
