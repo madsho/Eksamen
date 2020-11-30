@@ -1,9 +1,11 @@
-
+//logge ud 
 function logOut(){
     window.localStorage.clear();
     window.location = "Create.html";
 }
 
+
+//delete profile 
 function deleteProfile(){
     
     let userDelete = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
@@ -11,7 +13,6 @@ function deleteProfile(){
     var username = JSON.parse(userDelete)
     console.log(username.username);
 
-// Vi har ingen body, eftersom at vi ikke skal have noget tilbage --> vi sletter noget
     fetch("http://localhost:3000/User/register/delete/",{
     method: 'DELETE',
     headers: {
@@ -29,7 +30,7 @@ function deleteProfile(){
 }
 
 
-//uge 38 vejl løsning
+//uge 38 vejl løsning // display af data
 document.addEventListener("DOMContentLoaded", function() {
     var user = JSON.parse(localStorage.getItem('access granteded'))
     let table = document.getElementById("userTabel");
@@ -47,3 +48,42 @@ for (let i of userKeys) {
   table.innerHTML = html;
 
 });
+
+
+//Put skal kunne opdatere 
+function updateProfile(){
+    var firstname = document.getElementById ("firstname").value
+    var lastname = document.getElementById ("lastname").value
+    var email = document.getElementById ("email").value
+    var phone = document.getElementById ("phone").value
+    var signUpPass = document.getElementById ("Password").value
+    var interest = document.getElementById ("interest").value
+    var gender = document.getElementById ("gender").value
+    
+    let userUp = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    console.log(userUp);
+    var username = JSON.parse(userUp)
+    console.log(username.username);
+
+    const updatedUser = {
+        email: email,
+        password : signUpPass,
+        firstName: firstname,
+        lastName: lastname,
+        phone: phone,
+        interest: interest,
+        gender: gender,
+    };
+    console.log(updatedUser)
+
+    fetch("http://localhost:3000/User/register/Update", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUser),
+        body: JSON.stringify(username),
+    }).catch (err => {
+        throw (err)
+    });
+}

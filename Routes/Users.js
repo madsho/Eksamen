@@ -74,18 +74,25 @@ const err = "Error"
        
        
 
-    /
+    
       //Update
-      app.put('/users/:id', (req, res) => {
-        readFile(data => {
-          // add the new user
-          const userId = req.params['id'];
-          data[userId] = req.body;
-      
-          writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).send(`users id:${userId} updated`);
+      router.put('/Update', (req, res) => {
+        fs.readFileSync(dataPath + req.body.username + ".json", (err) => {
+          if (err) throw (err)
+          req.body.email,
+           req.body.password,
+           req.body.firstName,
+           req.body.lastName,
+           req.body.phone,
+           req.body.interest,
+           req.body.gender,
+           updatedUser = req.body.updatedUser
+           user = JSON.stringify(updatedUser)
+         
+          fs.writeFile(dataPath + req.body.username + ".json", user, (err) => {
+            if (err) throw (err)
           });
-        }, true);
+        })
       });
 
 

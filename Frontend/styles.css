@@ -9,3 +9,6 @@ body{
 #logInForm{
     display: inline-block;
 }
+#potenMatches{
+    float: right;
+}
