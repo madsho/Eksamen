@@ -11,22 +11,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 const match = require ("./Routes/Match");
-const userRoutes = require("./Routes/Users.js")(app, fs);
+const userRoutes = require("./Routes/Users.js");
 
 
 app.get('/', (req, res) => {
     res.send('We are live');
   });
 
+app.use ("/User/register", userRoutes);
 
-const appRouter = (app,fs)=> {
-  userRoutes(app, fs);
-};
 
 //CRUD Api-endpoints for users, interests and match
 
 
 
-const PORT = process.env.PORT || 5000 //Porten er på 5000 
+const PORT = process.env.PORT || 3000 //Porten er på 5000 
 
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));

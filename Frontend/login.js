@@ -1,23 +1,36 @@
-signUpUser = document.getElementById (signUsername)
-signUpPass = document.getElementById (signPassword)
 
-data = {"username": signUsername, "password": signUpPass}
+
+function login (){
+
+
+
+let username = document.getElementById ("username")
+let password = document.getElementById ("passsword")
+
+let loginInfo = {
+    username: username.value,
+    password: password.value,
+}
+
 
 // API .fetch .then .catch
-function saveData(){
-    fetch("http://localhost:5000/Users/register" , {
+    
+    fetch("http://localhost:3000/User/register/login/", {
         method: "POST",
         headers: {
-            "Content - Type": "application/json"
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(loginInfo),
+
+    }).then (response => response.json ())
+      .then(data =>{
+        console.log ("Sucsess logged in", data);
+        localStorage.setItem ("access granteded", JSON.stringify(data))
+        window.location = "homepage.html"
+
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log("sucess", data);
-        localStorage.setItem(data)
-    }).catch (err => {
-        console.log(err)
+    .catch (err => {
+            console.log("cant log in")
     });
 
 }

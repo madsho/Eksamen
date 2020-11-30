@@ -3,73 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinder 2.0</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
 </head>
 <body>
-    <form id = "signUpForm">
-    <div id="signUp">
-        <p>Sign up for a new account</p>
-        <label> Firstname:</label> </br> 
-        <input name="firstname" id="firstname" type="text" placeholder="Firstname" > </br> 
-    </br> 
-        <label> Lastname:</label></br> 
-        <input name="lastname" id="lastname" type = "text" placeholder="Lastname" ></br> 
-    </br> 
-        <label>Email:</label></br> 
-        <input name="email" id="email" type = "text" placeholder="Email" ></br> 
-    </br> 
-        <label> Phone: </label></br> 
-        <input name="phone" id="phone" type="number" placeholder="Phone number" ></br> 
-    </br> 
+    <form id = "loginForm">
+        <div id = "logIn">
+            <p>Log in</p>
+        </br> 
         <label>Username:</label></br> 
-        <input name="signUsername" id = "signUsername" type="text" placeholder="Username" ></br> 
+        <input name = "signInUser" id="username" type="text" placeholder="Username"></br> 
     </br> 
         <label>Password:</label></br> 
-        <input name="signPassword" id = "signPassword" type="text" placeholder="Password" ></br> 
+        <input name = "passUser" id="password" type="text" placeholder="Password"></br> 
     </br> 
-        <label>What gender are you interested in:</label></br>  
-        <select name ="interest" >
-            <option>---</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select> 
-    </br> 
-    </br> 
-    <label>Date og birth</label></br> 
-        <input name="dob" id = "interests" type="date" ></br> 
-    </br> 
-    <label>Your Gender:</label></br> 
-        <select name ="gender" >
-            <option>---</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select> 
-    </br> 
-    </br> 
-        <button id="signUpBut" type = "submit" onclick= "saveData()" > Create account </button>
-    </div>
-</form>
-
-
-<form id = "loginForm" action = "http://localhost:5000/Users/login" method="GET">
-    <div id = "logIn">
-        <p>Log in</p>
-    </br> 
-    <label>Username:</label></br> 
-    <input name = "signInUser" id="username" type="text" placeholder="Username"></br> 
-</br> 
-    <label>Password:</label></br> 
-    <input name = "passUser" id="password" type="text" placeholder="Password"></br> 
-</br> 
-    <button id = "logInBut" type = "submit" > <a href="./homepage.html"> Log in </a> </button>
-    </div>
-</form>
-
-
-    <script src="../Routes/Users.js"></script>
+        <button id = "logInBut" type = "button" onclick="login()"> Log in  </button>
+        </div>
+    </form>
     <script src="./login.js"></script>
-   
-
 </body>
 </html>

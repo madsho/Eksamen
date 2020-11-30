@@ -1,3 +1,7 @@
+  
+const express = require('express');
+const router = express.Router();
+
 class User { //Super class
     constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender){
         this.id = id
@@ -16,7 +20,7 @@ class User { //Super class
 };
 
 
-exports.userClass = User
+module.exports = User
 //
 
 
