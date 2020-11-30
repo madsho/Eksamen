@@ -1,17 +1,13 @@
 
 
 function login (){
-
-
-
-let username = document.getElementById ("username")
-let password = document.getElementById ("passsword")
+let username = document.getElementById ("username").value
+let password = document.getElementById ("password").value
 
 let loginInfo = {
-    username: username.value,
-    password: password.value,
+    username: username,
+    password: password,
 }
-
 
 // API .fetch .then .catch
     

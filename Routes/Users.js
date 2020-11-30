@@ -37,7 +37,7 @@ const err = "Error"
 
       let user = JSON.parse(fs.readFileSync(dataPath + req.body.username + ".json"))
       console.log(user)
-      if (user.password == req.body.password & user.username == req.body.username){
+      if (user.password == req.body.password && user.username == req.body.username){
         console.log("login succeded")
         res.json(user)
       }else{
@@ -74,7 +74,7 @@ const err = "Error"
        
        
 
-    /*
+    /
       //Update
       app.put('/users/:id', (req, res) => {
         readFile(data => {
@@ -87,13 +87,19 @@ const err = "Error"
           });
         }, true);
       });
-      // DELETE
-      */
 
-     router.delete('/users/username', (req, res) => {
-      //find username i localstorage 
-      fs.unlink("./Database/username", (err) => {
-        if (err){throw (err)}
+
+
+
+      // DELETE
+    
+     router.delete('/delete', (req, res) => {
+       username = req.body.username
+      fs.unlink(dataPath + username + ".json", (err) => {
+        if (err){throw (err)
+        } else{
+          console.log("Your profile has been deleted")
+        }
       })
     });
 
