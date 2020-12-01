@@ -94,7 +94,7 @@ function updateProfile(){
 
 //Match for users
 
-document.addEventListener("DOMContentLoaded", function() {
+function potMatch(){
     
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     console.log(userInterest);
@@ -110,6 +110,54 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }).then (response => response.json ())
     .then(data =>{
+        
+        console.log ("matched with", data);
+        let table = document.getElementById("potMatch");
+        localStorage.setItem("userEvaluated", JSON.stringify(data.username))
+
+    let html = "";
+
+
+    
+    html += "<tr><td>" + "Username:" + "</td><td>" + data.username + "</td></tr>";
+    html += "<tr><td>" + "Firstname:" + "</td><td>" + data.firstName + "</td></tr>";
+    html += "<tr><td>" + "Lastname:" + "</td><td>" + data.lastName + "</td></tr>";
+    html += "<tr><td>" + "Interested in:" + "</td><td>" + data.interest + "</td></tr>";
+    html += "<tr><td>" + "Date of birth:" + "</td><td>" + data.dob + "</td></tr>";
+    html += "<tr><td>" + "Gender:" + "</td><td>" + data.gender + "</td></tr>";
+ 
+
+  table.innerHTML = html;
+    })
+    .catch (err => {
+            throw (err)
+        
+    }); 
+};
+
+//function dislike
+
+function dislike(){
+    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    console.log(userInterest);
+    var userInt = JSON.parse(userInterest)
+    console.log(userInt.interest);
+   
+    let userEval = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
+    console.log(userEval);
+    var userDisLiked = JSON.parse(userEval)
+    console.log(userDisLiked);
+    
+
+    fetch("http://localhost:3000/User/register/dislike/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify([userInt, userDisLiked]),
+
+    }).then (response => response.json ())
+    .then(data =>{
         console.log ("matched with", data);
         let table = document.getElementById("potMatch");
     let html = "";
@@ -121,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
     html += "<tr><td>" + "Lastname:" + "</td><td>" + data.lastName + "</td></tr>";
     html += "<tr><td>" + "Interested in:" + "</td><td>" + data.interest + "</td></tr>";
     html += "<tr><td>" + "Date of birth:" + "</td><td>" + data.dob + "</td></tr>";
-    html += "<tr><td>" + "gender:" + "</td><td>" + data.gender + "</td></tr>";
+    html += "<tr><td>" + "Gender:" + "</td><td>" + data.gender + "</td></tr>";
  
 
   table.innerHTML = html;
@@ -130,8 +178,4 @@ document.addEventListener("DOMContentLoaded", function() {
             throw (err)
         
     });
-    
-    
-
-    
-});
+}

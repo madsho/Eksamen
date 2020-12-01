@@ -24,6 +24,7 @@ const user = {
         interest: interest,
         dob: dob,
         gender: gender,
+
     };
     console.log(user)
 

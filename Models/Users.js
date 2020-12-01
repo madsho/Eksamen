@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 class User { //Super class
-    constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender){
+    constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender, dislike, like){
         this.id = id
         this.email = email
         this.username = username
@@ -14,7 +14,8 @@ class User { //Super class
         this.interest = interest
         this.dob = dob
         this.gender = gender
-        
+        this.dislike = dislike
+        this.like = like
         }
         //Age calculator so the website keeps updating the users age
 };
