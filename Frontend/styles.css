@@ -2,18 +2,13 @@ body{
     background-color: pink;
 }
 
-#signUp{
-    display: inline-block;
-    margin-left: 350px;
-    vertical-align: top;
-    margin-top: 50px;
-
+#signUpForm{
+    float: left;
 }
 
-#logIn{
+#logInForm{
     display: inline-block;
-    vertical-align: top;
-    margin-top: 50px;
-    margin-left: 50px;
-
+}
+#potenMatches{
+    float: right;
 }

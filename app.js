@@ -9,25 +9,22 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-const interests = require ("./Routes/Interests");
+
 const match = require ("./Routes/Match");
-const userRoutes = require("./Routes/Users.js")(app, fs);
+const userRoutes = require("./Routes/Users.js");
 
 
 app.get('/', (req, res) => {
-    res.send('WE live BOIIIIIZ');
+    res.send('We are live');
   });
 
-
-const appRouter = (app,fs)=> {
-  userRoutes(app, fs);
-};
+app.use ("/User/register", userRoutes);
 
 
 //CRUD Api-endpoints for users, interests and match
 
 
 
-const PORT = process.env.PORT || 3000 //Porten er på 3000 
+const PORT = process.env.PORT || 3000 //Porten er på 5000 
 
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));

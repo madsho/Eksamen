@@ -1,91 +1,230 @@
+const { match } = require("assert");
+const express = require ("express");
+const fs = require ("fs");
+const { Http2ServerRequest } = require("http2");
+const router = express.Router();
+const err = "Error"
 
-const userRoutes = (app, fs) => {
+
     // variables
-    const dataPath = './Database/users.json';
-  
-    const readFile = (
-        callback,
-        returnJson = false,
-        filePath = dataPath,
-        encoding = 'utf8'
-      ) => {
-        fs.readFile(filePath, encoding, (err, data) => {
-          if (err) {
-            throw err;
-          }
-    
-          callback(returnJson ? JSON.parse(data) : data);
-        });
-      };
-    
-      const writeFile = (
-        fileData,
-        callback,
-        filePath = dataPath,
-        encoding = 'utf8'
-      ) => {
-        fs.writeFile(filePath, fileData, encoding, err => {
-          if (err) {
-            throw err;
-          }
-    
-          callback();
-        });
-      };
-    
+    const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
+   /*
       // READ
-      // Notice how we can make this 'read' operation much more simple now.
-      app.get('/users/:id', (req, res) => {
-        const userId = req.params['id'];
-        readFile(data => {
-          res.send(data[userId]);
-        }, true);
-      });
-    
-    //Create
-    app.post('/users', (req, res) => {
-    
-        readFile(data => {
-          const newUserId = Object.keys(data).length + 1;
+  
+      app.get('/Users/login', (req, res) => {
+        
+          fs.readdir(dataPath, (err, files) => {
+          if (err){throw err;} else{
+            files.forEach(file => {
+            fs.readFile(dataPath + file, (data) =>{
+                user = JSON.parse(data)
+             // for (value of Object.values(data))
+             if (user = req.body.signInUser){
+              res.status(200).send(console.log("sucess"))
+            } 
+          })
+          // login read file 
+        })
+      }
+    })
+  })
+
+       */
+
+// check if disliked 
+  router.post("/match", (req,res)=>{
+
+    fs.readdir(dataPath, (err, files) => {
+     
+       let sent = false;
+
+        files.forEach(file => {
+
+          let otherUser = JSON.parse(fs.readFileSync(dataPath + file))
+          //console.log(otherUser)
+          
+          if (sent == false){
+              
+            if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
          
-          // add the new user
-          data [newUserId] = req.body;
-      
-          writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).json ({
-              message: 'new user added',
-              user: data[newUserId]
-            });
-          });
-        }, true);
-      });
-      //Update
-      app.put('/users/:id', (req, res) => {
-        readFile(data => {
-          // add the new user
-          const userId = req.params['id'];
-          data[userId] = req.body;
-      
-          writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).send(`users id:${userId} updated`);
-          });
-        }, true);
-      });
-      // DELETE
-      
-    app.delete('/users/:id', (req, res) => {
-        readFile(data => {
-        // add the new user
-        const userId = req.params['id'];
-        delete data[userId];
+              let disLike = false;
+
+              let otherUserValues = Object.values(otherUser) // får values fra 
+              let otherUserArray = otherUserValues [10]; // henviser specifikt til value 10
+
+              for (i = 0; otherUserArray.length > i; i++){
+                   if(otherUserArray[i] == req.body.username){
+             disLike = true
+      };
+    };
+          if (sent == false){
+                  
+            if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
+        
+              let like = false;
+
+              let otherUserValues = Object.values(otherUser) // får values fra 
+              let otherUserArray = otherUserValues [11]; // henviser specifikt til value 10
+
+              for (i = 0; otherUserArray.length > i; i++){
+                  if(otherUserArray[i] == req.body.username){
+            like = true
+      };
+    };
+   if (disLike == false && like == false){
+        console.log(otherUser)
+        console.log("Match succeded")
+        res.json(otherUser)
+        sent = true
+            } 
+          }
+        }
+        }
+      }
+    })
+    })
+})
+
+ 
+
+router.post("/dislike", (req,res)=>{
+
+  let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
+
+  let userOperator = req.body[0].username //Den user der disliker
+
+    let evalUser = JSON.parse(fs.readFileSync(dataPath + userDisLiked + ".json"))
     
-        writeFile(JSON.stringify(data, null, 2), () => {
-            res.status(200).send(`users id:${userId} removed`);
-        });
-        }, true);
+
+    let oldUserValues = Object.values(evalUser)
+    let oldArray = oldUserValues [10];
+
+
+    let newArray = new Array (userOperator)
+
+    for (i=0; oldArray.length > i; i++){
+      let oldValue = oldArray [i];
+
+      newArray.push(oldValue);
+    };
+
+    evalUser.dislike = newArray
+
+    fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
+})
+
+router.post("/like", (req,res)=>{
+
+  let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
+
+  let userOperator = req.body[0].username //Den user der disliker
+
+    let evalUser = JSON.parse(fs.readFileSync(dataPath + userDisLiked + ".json"))
+    
+
+    let oldUserValues = Object.values(evalUser)
+    let oldArray = oldUserValues [11];
+
+
+    let newArray = new Array (userOperator)
+
+    for (i=0; oldArray.length > i; i++){
+      let oldValue = oldArray [i];
+
+      newArray.push(oldValue);
+    };
+
+    evalUser.like = newArray
+
+    fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
+})
+
+
+    const User = require("../Models/Users.js");
+    //Create
+    router.post("/login", (req, res)=>{
+      console.log(req.body)
+
+      let user = JSON.parse(fs.readFileSync(dataPath + req.body.username + ".json"))
+      console.log(user)
+      if (user.password == req.body.password && user.username == req.body.username){
+        console.log("login succeded")
+        res.json(user)
+      }else{
+        res.json({err: "Error"})
+      }
+    })
+  
+    router.post('/', (req, res) => {
+     
+          //Et ID der bliver tildet. Id'et er Datoen/tiddspunktet profilen er blevet oprettet på
+          const newuser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
+            newId = Date.now().toString(),
+             req.body.email,
+             req.body.username,
+             req.body.password,
+             req.body.firstName,
+             req.body.lastName,
+             req.body.phone,
+             req.body.interest,
+             req.body.dob,
+             req.body.gender,
+             [],
+             []
+          );
+         
+          users = JSON.stringify(newuser) //laver de indtastet informationer til en string og derefter sætter dem pænt op med null, 2
+          
+           //Local storage
+          
+            fs.writeFileSync(dataPath + req.body.username + ".json", users, (err) => { //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind i
+              if ((err) )throw (err)
+      
+              
+              
+            });
+        
+      });
+
+       
+       
+
+    
+      //Update
+      router.put('/Update', (req, res) => {
+        fs.readFileSync(dataPath + req.body.username + ".json", (err) => {
+          if (err) throw (err)
+          req.body.email,
+           req.body.password,
+           req.body.firstName,
+           req.body.lastName,
+           req.body.phone,
+           req.body.interest,
+           req.body.gender,
+           updatedUser = req.body.updatedUser
+           user = JSON.stringify(updatedUser)
+         
+          fs.writeFile(dataPath + req.body.username + ".json", user, (err) => {
+            if (err) throw (err)
+          });
+        })
+      });
+
+
+
+
+      // DELETE
+    
+     router.delete('/delete', (req, res) => {
+       username = req.body.username
+      fs.unlink(dataPath + username + ".json", (err) => {
+        if (err){throw (err)
+        } else{
+          console.log("Your profile has been deleted")
+        }
+      })
     });
 
-    };
-    
   
-  module.exports = userRoutes;
+
+  module.exports = router; 

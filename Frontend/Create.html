@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinder 2.0</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   <form id = "signUpForm">
+    <div id="signUp">
+        <p>Sign up for a new account</p>
+        <label> Firstname:</label> </br> 
+        <input id="firstname" name="firstname"  type="text" placeholder="Firstname" > </br> 
+    </br> 
+        <label> Lastname:</label></br> 
+        <input  id="lastname" name="lastname" type = "text" placeholder="Lastname" ></br> 
+    </br> 
+        <label>Email:</label></br> 
+        <input  id="email" name="email" type = "text" placeholder="Email" ></br> 
+    </br> 
+        <label> Phone: </label></br> 
+        <input  id="phone"  name="phone" type="number" placeholder="Phone number" ></br> 
+    </br> 
+        <label>Username:</label></br> 
+        <input  id = "signUsername" name="signUsername" type="text" placeholder="Username" ></br> 
+    </br> 
+        <label>Password:</label></br> 
+        <input  id = "signPassword" name="signPassword" type="text" placeholder="Password" ></br> 
+    </br> 
+        <label>What gender are you interested in:</label></br>  
+        <select name ="interest" id="interest">
+            <option>---</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select> 
+    </br> 
+    </br> 
+    <label>Date og birth</label></br> 
+        <input id = "dob" name="dob"  type="date" ></br> 
+    </br> 
+    <label>Your Gender:</label></br> 
+        <select id="gender" name ="gender" >
+            <option>---</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select> 
+    </br> 
+    </br> 
+        <button id="signUpBut" onclick= "saveData()" type = "button" >Create account </button>
+    </br> <a>If you have an account you can go to the log in link here:</a></br> 
+        <button id="signInBut" type = "button" > <a href="Login.html"> Log in </a></button>
+    </div>
+
+
+</form>
+    <script src="./Create.js"></script>
+   
+
+</body>
+</html>
