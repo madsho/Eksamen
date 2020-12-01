@@ -28,7 +28,21 @@ const err = "Error"
   })
 
        */
+  router.post("/match", (req,res)=>{
+    fs.readdir (dataPath, (err, files)=>{
+     
+        files.forEach(file => {
+     let matchUser = JSON.parse(fs.readFileSync(dataPath + file))
+    console.log(matchUser)
 
+    
+    if (matchUser.interest == req.body.gender && matchUser.gender == req.body.interest){
+      console.log("Match succeded")
+      res.json(matchUser)
+    }
+  })
+  })
+})
 
     const User = require("../Models/Users.js");
     //Create
@@ -46,29 +60,32 @@ const err = "Error"
     })
   
     router.post('/', (req, res) => {
-    
+     
           //Et ID der bliver tildet. Id'et er Datoen/tiddspunktet profilen er blevet oprettet på
-         const newuser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
-          newId = Date.now().toString(),
-           req.body.email,
-           req.body.username,
-           req.body.password,
-           req.body.firstName,
-           req.body.lastName,
-           req.body.phone,
-           req.body.interest,
-           req.body.dob,
-           req.body.gender,
-        );
-       
-        users = JSON.stringify(newuser) //laver de indtastet informationer til en string og derefter sætter dem pænt op med null, 2
-        
-         //Local storage
-        
-          fs.writeFileSync(dataPath + req.body.username + ".json", users, (err) => { //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind i
-            if (err) throw err;
+          const newuser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
+            newId = Date.now().toString(),
+             req.body.email,
+             req.body.username,
+             req.body.password,
+             req.body.firstName,
+             req.body.lastName,
+             req.body.phone,
+             req.body.interest,
+             req.body.dob,
+             req.body.gender,
+          );
+         
+          users = JSON.stringify(newuser) //laver de indtastet informationer til en string og derefter sætter dem pænt op med null, 2
           
-          });
+           //Local storage
+          
+            fs.writeFileSync(dataPath + req.body.username + ".json", users, (err) => { //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind i
+              if ((err) )throw (err)
+      
+              
+              
+            });
+        
       });
 
        

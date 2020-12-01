@@ -33,8 +33,11 @@ const user = {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
-    }).catch (err => {
-        throw (err)
+        
+    })
+    .catch (err => {
+        throw (err),
+        window.location = "Login.html"
     });
-
+    
 }

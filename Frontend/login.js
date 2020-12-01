@@ -23,10 +23,11 @@ let loginInfo = {
         console.log ("Sucsess logged in", data);
         localStorage.setItem ("access granteded", JSON.stringify(data))
         window.location = "homepage.html"
-
+        alert ("Username or passwoord correct. Welcome back " + username)
     })
     .catch (err => {
             console.log("cant log in")
+            alert ("Username or passwoord is incorrect")
     });
 
 }

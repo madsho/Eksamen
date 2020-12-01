@@ -1,3 +1,5 @@
+
+
 //logge ud 
 function logOut(){
     window.localStorage.clear();
@@ -32,6 +34,7 @@ function deleteProfile(){
 
 //uge 38 vejl løsning // display af data
 document.addEventListener("DOMContentLoaded", function() {
+    
     var user = JSON.parse(localStorage.getItem('access granteded'))
     let table = document.getElementById("userTabel");
     let html = "";
@@ -87,3 +90,48 @@ function updateProfile(){
         throw (err)
     });
 }
+
+
+//Match for users
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    console.log(userInterest);
+    var userInt = JSON.parse(userInterest)
+    console.log(userInt.interest);
+
+    fetch("http://localhost:3000/User/register/match/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userInt),
+
+    }).then (response => response.json ())
+    .then(data =>{
+        console.log ("matched with", data);
+        let table = document.getElementById("potMatch");
+    let html = "";
+
+
+    
+    html += "<tr><td>" + "Username:" + "</td><td>" + data.username + "</td></tr>";
+    html += "<tr><td>" + "Firstname:" + "</td><td>" + data.firstName + "</td></tr>";
+    html += "<tr><td>" + "Lastname:" + "</td><td>" + data.lastName + "</td></tr>";
+    html += "<tr><td>" + "Interested in:" + "</td><td>" + data.interest + "</td></tr>";
+    html += "<tr><td>" + "Date of birth:" + "</td><td>" + data.dob + "</td></tr>";
+    html += "<tr><td>" + "gender:" + "</td><td>" + data.gender + "</td></tr>";
+ 
+
+  table.innerHTML = html;
+    })
+    .catch (err => {
+            throw (err)
+        
+    });
+    
+    
+
+    
+});
