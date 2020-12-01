@@ -1,6 +1,7 @@
 const { match } = require("assert");
 const express = require ("express");
 const fs = require ("fs");
+const { Http2ServerRequest } = require("http2");
 const router = express.Router();
 const err = "Error"
 
@@ -29,35 +30,73 @@ const err = "Error"
   })
 
        */
+
+// check if disliked 
   router.post("/match", (req,res)=>{
-    fs.readdir (dataPath, (err, files)=>{
-    
-      let matchSent = false;
+
+    fs.readdir(dataPath, (err, files) => {
+     
+       let sent = false;
 
         files.forEach(file => {
-     let matchUser = JSON.parse(fs.readFileSync(dataPath + file))
-    console.log(matchUser)
 
-   if (matchSent == false){
-      if (matchUser.interest == req.body.gender && matchUser.gender == req.body.interest){
+          let otherUser = JSON.parse(fs.readFileSync(dataPath + file))
+          //console.log(otherUser)
+          
+          if (sent == false){
+              
+            if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
+         
+              let disLike = false;
+
+              let otherUserValues = Object.values(otherUser) // får values fra 
+              let otherUserArray = otherUserValues [10]; // henviser specifikt til value 10
+
+              for (i = 0; otherUserArray.length > i; i++){
+                   if(otherUserArray[i] == req.body.username){
+             disLike = true
+      };
+    };
+          if (sent == false){
+                  
+            if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
+        
+              let like = false;
+
+              let otherUserValues = Object.values(otherUser) // får values fra 
+              let otherUserArray = otherUserValues [11]; // henviser specifikt til value 10
+
+              for (i = 0; otherUserArray.length > i; i++){
+                  if(otherUserArray[i] == req.body.username){
+            like = true
+      };
+    };
+   if (disLike == false && like == false){
+        console.log(otherUser)
         console.log("Match succeded")
-        res.json(matchUser)
-      } matchSent = true
-    }
-  })
-  })
+        res.json(otherUser)
+        sent = true
+            } 
+          }
+        }
+        }
+      }
+    })
+    })
 })
+
+ 
 
 router.post("/dislike", (req,res)=>{
 
-  let userDisLiked = req.body[1] //henter hver user 
+  let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
 
-  let userOperator = req.body[0].username
+  let userOperator = req.body[0].username //Den user der disliker
 
     let evalUser = JSON.parse(fs.readFileSync(dataPath + userDisLiked + ".json"))
     
-    let oldUserValues = Object.values(evalUser)
 
+    let oldUserValues = Object.values(evalUser)
     let oldArray = oldUserValues [10];
 
 
@@ -67,48 +106,38 @@ router.post("/dislike", (req,res)=>{
       let oldValue = oldArray [i];
 
       newArray.push(oldValue);
-    }
+    };
 
     evalUser.dislike = newArray
 
-    fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser), (err) => { //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind i
-    if (err)throw (err)
-
-  })
-
-  let sent = false
-
-  if (sent == false){
-
-    let disLike = false;
-
-  fs.readdir(dataPath, (err, files) => {
-    if (err) throw (err)
-      files.forEach(file => {
-   let nextUser = JSON.parse(fs.readFileSync(dataPath + file))
-  console.log(nextUser)
-
-        let nextUserValues = Object.values(nextUser) // får values fra nextuser
-        let nextUserArray = nextUserValues [10]; // henviser specifikt til value 10
-
-  for (i=0; nextUserArray.length > i; i++){
-    if(i == req.body[0].username){
-      disLike = false
-    }
-  }
- if (disLike == true){
-    if (nextUser.interest == req.body[0].gender && nextUser.gender == req.body[0].interest){
-      console.log(nextUser)
-      console.log("Match succeded")
-      res.json(nextUser)
-        } sent = true
-      }
-    })
-  })
-}
-
+    fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
 })
 
+router.post("/like", (req,res)=>{
+
+  let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
+
+  let userOperator = req.body[0].username //Den user der disliker
+
+    let evalUser = JSON.parse(fs.readFileSync(dataPath + userDisLiked + ".json"))
+    
+
+    let oldUserValues = Object.values(evalUser)
+    let oldArray = oldUserValues [11];
+
+
+    let newArray = new Array (userOperator)
+
+    for (i=0; oldArray.length > i; i++){
+      let oldValue = oldArray [i];
+
+      newArray.push(oldValue);
+    };
+
+    evalUser.like = newArray
+
+    fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
+})
 
 
     const User = require("../Models/Users.js");

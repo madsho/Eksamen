@@ -1,5 +1,4 @@
 
-
 //logge ud 
 function logOut(){
     window.localStorage.clear();
@@ -92,14 +91,15 @@ function updateProfile(){
 }
 
 
-//Match for users
-
-function potMatch(){
+//Viser potentiel match
+document.addEventListener("DOMContentLoaded", function() {
     
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    console.log(userInterest);
+    //console.log(userInterest);
     var userInt = JSON.parse(userInterest)
-    console.log(userInt.interest);
+    //console.log(userInt.interest);
+
+
 
     fetch("http://localhost:3000/User/register/match/", {
         method: "POST",
@@ -110,12 +110,11 @@ function potMatch(){
 
     }).then (response => response.json ())
     .then(data =>{
-        
         console.log ("matched with", data);
         let table = document.getElementById("potMatch");
-        localStorage.setItem("userEvaluated", JSON.stringify(data.username))
-
-    let html = "";
+        localStorage.setItem("userEvaluated", JSON.stringify(data.username));
+        
+        let html = "";
 
 
     
@@ -128,27 +127,28 @@ function potMatch(){
  
 
   table.innerHTML = html;
+  
+  
     })
     .catch (err => {
             throw (err)
         
     }); 
-};
+});
 
 //function dislike
-
 function dislike(){
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    console.log(userInterest);
+    //console.log(userInterest);
     var userInt = JSON.parse(userInterest)
-    console.log(userInt.interest);
+    //console.log(userInt.interest);
    
     let userEval = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
-    console.log(userEval);
+   // console.log(userEval);
     var userDisLiked = JSON.parse(userEval)
-    console.log(userDisLiked);
+   // console.log(userDisLiked);
     
-
+   
     fetch("http://localhost:3000/User/register/dislike/", {
         method: "POST",
         headers: {
@@ -156,26 +156,35 @@ function dislike(){
         },
         body: JSON.stringify([userInt, userDisLiked]),
 
-    }).then (response => response.json ())
-    .then(data =>{
-        console.log ("matched with", data);
-        let table = document.getElementById("potMatch");
-    let html = "";
-
-
-    
-    html += "<tr><td>" + "Username:" + "</td><td>" + data.username + "</td></tr>";
-    html += "<tr><td>" + "Firstname:" + "</td><td>" + data.firstName + "</td></tr>";
-    html += "<tr><td>" + "Lastname:" + "</td><td>" + data.lastName + "</td></tr>";
-    html += "<tr><td>" + "Interested in:" + "</td><td>" + data.interest + "</td></tr>";
-    html += "<tr><td>" + "Date of birth:" + "</td><td>" + data.dob + "</td></tr>";
-    html += "<tr><td>" + "Gender:" + "</td><td>" + data.gender + "</td></tr>";
- 
-
-  table.innerHTML = html;
-    })
-    .catch (err => {
+    }).catch (err => {
             throw (err)
         
     });
 }
+
+//function for at kunne dislike
+function like(){
+    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    //console.log(userInterest);
+    var userInt = JSON.parse(userInterest)
+    //console.log(userInt.interest);
+   
+    let userEval = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
+   // console.log(userEval);
+    var userDisLiked = JSON.parse(userEval)
+   // console.log(userDisLiked);
+    
+   
+    fetch("http://localhost:3000/User/register/like/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify([userInt, userDisLiked]),
+
+    }).catch (err => {
+            throw (err)
+        
+    });
+}
+
