@@ -1,3 +1,4 @@
+const { match } = require("assert");
 const express = require ("express");
 const fs = require ("fs");
 const router = express.Router();
@@ -31,14 +32,17 @@ const err = "Error"
   router.post("/match", (req,res)=>{
     fs.readdir (dataPath, (err, files)=>{
      
+      let matchSent = false;
+
         files.forEach(file => {
      let matchUser = JSON.parse(fs.readFileSync(dataPath + file))
     console.log(matchUser)
 
-    
-    if (matchUser.interest == req.body.gender && matchUser.gender == req.body.interest){
-      console.log("Match succeded")
-      res.json(matchUser)
+   if (matchSent == false){
+      if (matchUser.interest == req.body.gender && matchUser.gender == req.body.interest){
+        console.log("Match succeded")
+        res.json(matchUser)
+      } matchSent = true
     }
   })
   })
