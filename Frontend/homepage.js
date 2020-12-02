@@ -37,58 +37,22 @@ document.addEventListener("DOMContentLoaded", function() {
     var user = JSON.parse(localStorage.getItem('access granteded'))
     let table = document.getElementById("userTabel");
     let html = "";
-    let userKeys = Object.keys(user);
-    let userValues = Object.values(user);
-
-    var j = 0
-for (let i of userKeys) {
-    html += "<tr><td>" + i + "</td><td>" + userValues[j] + "</td></tr>";
-    j += 1
-}
+  
  
+    html += "<tr><td>" + "ID:" + "</td><td>" + user.id + "</td></tr>";
+    html += "<tr><td>" + "Email:" + "</td><td>" + user.email + "</td></tr>";
+    html += "<tr><td>" + "Username:" + "</td><td>" + user.username + "</td></tr>";
+    html += "<tr><td>" + "Password:" + "</td><td>" + user.password + "</td></tr>";
+    html += "<tr><td>" + "Firstname:" + "</td><td>" + user.firstName + "</td></tr>";
+    html += "<tr><td>" + "Lastname:" + "</td><td>" + user.lastName + "</td></tr>";
+    html += "<tr><td>" + "Phone:" + "</td><td>" + user.phone + "</td></tr>";
+    html += "<tr><td>" + "Interested in:" + "</td><td>" + user.interest + "</td></tr>";
+    html += "<tr><td>" + "Date of Birth:" + "</td><td>" + user.dob + "</td></tr>";
+    html += "<tr><td>" + "Your gender:" + "</td><td>" + user.gender + "</td></tr>";
 
   table.innerHTML = html;
 
 });
-
-
-//Put skal kunne opdatere 
-function updateProfile(){
-    var firstname = document.getElementById ("firstname").value
-    var lastname = document.getElementById ("lastname").value
-    var email = document.getElementById ("email").value
-    var phone = document.getElementById ("phone").value
-    var signUpPass = document.getElementById ("Password").value
-    var interest = document.getElementById ("interest").value
-    var gender = document.getElementById ("gender").value
-    
-    let userUp = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    console.log(userUp);
-    var username = JSON.parse(userUp)
-    console.log(username.username);
-
-    const updatedUser = {
-        email: email,
-        password : signUpPass,
-        firstName: firstname,
-        lastName: lastname,
-        phone: phone,
-        interest: interest,
-        gender: gender,
-    };
-    console.log(updatedUser)
-
-    fetch("http://localhost:3000/User/register/Update", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedUser),
-        body: JSON.stringify(username),
-    }).catch (err => {
-        throw (err)
-    });
-}
 
 
 //Viser potentiel match
@@ -113,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log ("matched with", data);
         let table = document.getElementById("potMatch");
         localStorage.setItem("userEvaluated", JSON.stringify(data.username));
-        
+       
         let html = "";
 
 
@@ -136,28 +100,28 @@ document.addEventListener("DOMContentLoaded", function() {
     }); 
 });
 
+
 //function dislike
 function dislike(){
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var userInt = JSON.parse(userInterest)
+    var useroperator = JSON.parse(userInterest)
     //console.log(userInt.interest);
-   
-    let userEval = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
-   // console.log(userEval);
-    var userDisLiked = JSON.parse(userEval)
-   // console.log(userDisLiked);
     
+    let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
+    // console.log(userEval);
+    var userDisLiked = JSON.parse(userEvaluated)
+    // console.log(userDisLiked);
    
     fetch("http://localhost:3000/User/register/dislike/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify([userInt, userDisLiked]),
+        body: JSON.stringify([useroperator, userDisLiked]),
 
     }).catch (err => {
-            throw (err)
+            throw(err)
         
     });
 }
@@ -166,12 +130,12 @@ function dislike(){
 function like(){
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var userInt = JSON.parse(userInterest)
+    var useroperator = JSON.parse(userInterest)
     //console.log(userInt.interest);
    
-    let userEval = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
+    let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
    // console.log(userEval);
-    var userDisLiked = JSON.parse(userEval)
+    var userLiked = JSON.parse(userEvaluated)
    // console.log(userDisLiked);
     
    
@@ -180,11 +144,58 @@ function like(){
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify([userInt, userDisLiked]),
+        body: JSON.stringify([useroperator, userLiked]),
 
-    }).catch (err => {
+    })
+    .catch (err => {
             throw (err)
         
     });
+  
 }
 
+
+
+//update
+
+function updateProfile(){
+    let userUpdate = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    //console.log(userInterest);
+    var userUp = JSON.parse(userUpdate)
+    //console.log(userInt.interest); 
+
+    var firstname = document.getElementById ("firstname").value
+    var lastname = document.getElementById ("lastname").value
+    var email = document.getElementById ("email").value
+    var phone = document.getElementById ("phone").value
+    var password = document.getElementById ("Password").value
+    var interest = document.getElementById ("interest").value
+    var gender = document.getElementById ("gender").value
+        
+    
+    const user = {
+            email: email,
+            password : password,
+            firstName: firstname,
+            lastName: lastname,
+            phone: phone,
+            interest: interest,
+            gender: gender,
+    
+        };
+        console.log(user)
+    
+        fetch("http://localhost:3000/User/register/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify([user, userUp]),
+            
+        })
+        .catch (err => {
+            throw (err),
+            window.location = "Login.html"
+        });
+        
+    }

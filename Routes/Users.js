@@ -1,41 +1,46 @@
-const { match } = require("assert");
+
 const express = require ("express");
 const fs = require ("fs");
-const { Http2ServerRequest } = require("http2");
 const router = express.Router();
 const err = "Error"
 
 
     // variables
     const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
-   /*
-      // READ
-  
-      app.get('/Users/login', (req, res) => {
+   
+      
+  // Vise matches på view all matches tab
+      router.post('/confirmMatch', (req, res) => {
         
           fs.readdir(dataPath, (err, files) => {
-          if (err){throw err;} else{
+            if (err) throw (err)
             files.forEach(file => {
-            fs.readFile(dataPath + file, (data) =>{
-                user = JSON.parse(data)
-             // for (value of Object.values(data))
-             if (user = req.body.signInUser){
-              res.status(200).send(console.log("sucess"))
-            } 
+              
+                let userMatched = JSON.parse(fs.readFileSync(dataPath + file))
+                let userMatchedValues = Object.values(userMatched) // får values fra 
+                let userMatchedArray = userMatchedValues [11];
+
+                let userNam = "";
+               
+                for (i = 0; userMatchedArray.length > i; i++){
+                    userNam = userMatchedArray[i]
+                }
+
+                if (userMatched.username = req.body.like && userNam == req.body.username){
+                  
+                  res.json(userMatched)
+               } 
           })
-          // login read file 
-        })
-      }
-    })
+      })
   })
 
-       */
+       
 
 // check if disliked 
   router.post("/match", (req,res)=>{
 
     fs.readdir(dataPath, (err, files) => {
-     
+     if (err) throw (err)
        let sent = false;
 
         files.forEach(file => {
@@ -191,20 +196,26 @@ router.post("/like", (req,res)=>{
 
     
       //Update
-      router.put('/Update', (req, res) => {
-        fs.readFileSync(dataPath + req.body.username + ".json", (err) => {
-          if (err) throw (err)
-          req.body.email,
-           req.body.password,
-           req.body.firstName,
-           req.body.lastName,
-           req.body.phone,
-           req.body.interest,
-           req.body.gender,
-           updatedUser = req.body.updatedUser
-           user = JSON.stringify(updatedUser)
+      router.put('/update', (req, res) => {
+        fs.readFileSync(dataPath + req.body[1].username + ".json", (err) => {
+          
+          const updatedUser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
+            newId = Date.now().toString(),
+             req.body[0].email,
+             req.body[0].username,
+             req.body[0].password,
+             req.body[0].firstName,
+             req.body[0].lastName,
+             req.body[0].phone,
+             req.body[0].interest,
+             req.body[0].dob,
+             req.body[0].gender,
+             [],
+             []
+          );
+         upUser = JSON.stringify(updatedUser)
          
-          fs.writeFile(dataPath + req.body.username + ".json", user, (err) => {
+          fs.writeFile(dataPath + req.body.username + ".json", upUser, (err) => {
             if (err) throw (err)
           });
         })
