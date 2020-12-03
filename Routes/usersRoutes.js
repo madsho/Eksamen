@@ -2,40 +2,12 @@
 const express = require ("express");
 const fs = require ("fs");
 const router = express.Router();
-const err = "Error"
+
 
 
     // variables
     const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
    
-      
-  // Vise matches på view all matches tab
-      router.post('/confirmMatch', (req, res) => {
-        
-          fs.readdir(dataPath, (err, files) => {
-            if (err) throw (err)
-            files.forEach(file => {
-              
-                let userMatched = JSON.parse(fs.readFileSync(dataPath + file))
-                let userMatchedValues = Object.values(userMatched) // får values fra 
-                let userMatchedArray = userMatchedValues [11];
-
-                let userNam = "";
-               
-                for (i = 0; userMatchedArray.length > i; i++){
-                    userNam = userMatchedArray[i]
-                }
-
-                if (userMatched.username = req.body.like && userNam == req.body.username){
-                  
-                  res.json(userMatched)
-               } 
-          })
-      })
-  })
-
-       
-
 // check if disliked 
   router.post("/match", (req,res)=>{
 
@@ -94,6 +66,7 @@ const err = "Error"
 
 router.post("/dislike", (req,res)=>{
 
+  
   let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
 
   let userOperator = req.body[0].username //Den user der disliker
@@ -142,7 +115,33 @@ router.post("/like", (req,res)=>{
     evalUser.like = newArray
 
     fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
+    res.json(evalUser)
+  })
+
+// Alert hvis man liker en der har liket en tilbage
+router.post ("/likeAlert", (req,res) => {
+  let userOp = req.body[0].username
+  let userToBeEvaluated = req.body[1]
+
+
+  let userMatchAlert = JSON.parse(fs.readFileSync(dataPath + userOp + ".json")) 
+
+  let likedBy = Object.values(userMatchAlert)
+  let likedByArray = likedBy[11];
+ 
+    let likedByUsers = []
+
+    for (i=0; likedByArray.length > i; i++){
+      if (userToBeEvaluated == likedByArray ){
+
+        likedByUsers.push(userToBeEvaluated)   
+         
+      } res.json(Object.values(likedByUsers))  
+    }; 
+       
 })
+
+
 
 
     const User = require("../Models/userModels.js");

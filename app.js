@@ -24,8 +24,8 @@ app.get('/', (req, res) => {
 //endpoints
 app.use ("/User/register", userRoutes);
 app.use ("/Match", matchRoutes);
-app.use ("/Like", likeRoutes);
-app.use ("/Dislike", dislikeRoutes);
+//app.use ("/Like", likeRoutes);
+//app.use ("/Dislike", dislikeRoutes);
 
 
 //CRUD Api-endpoints for users, interests and match

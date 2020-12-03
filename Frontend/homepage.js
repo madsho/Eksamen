@@ -103,6 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //function dislike
 function dislike(){
+
+   
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
     let useroperator = JSON.parse(userInterest)
@@ -112,7 +114,8 @@ function dislike(){
     // console.log(userEval);
     let userDisLiked = JSON.parse(userEvaluated)
     // console.log(userDisLiked);
-   
+ 
+
     fetch("http://localhost:3000/User/register/dislike/", {
         method: "POST",
         headers: {
@@ -120,14 +123,20 @@ function dislike(){
         },
         body: JSON.stringify([useroperator, userDisLiked]),
 
-    }).catch (err => {
+    }).then (response => response.json())
+    .then (data =>{
+        window.location.reload()
+    })
+    .catch (err => {
             throw(err)
         
     });
+   
 }
 
 //function for at kunne dislike
 function like(){
+   
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
     let useroperator = JSON.parse(userInterest)
@@ -146,15 +155,43 @@ function like(){
         },
         body: JSON.stringify([useroperator, userLiked]),
 
+    }).then (response => response.json())
+    .then (data =>{
+        likeAlert()
+    }).catch (err => {
+            throw (err)
+    });
+
+}
+
+function likeAlert(){
+
+    let userLikeAlert = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
+    let userOp = JSON.parse(userLikeAlert)
+ 
+
+    let userCreateAlert = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
+    let userAlerting = JSON.parse(userCreateAlert)
+    
+
+
+    fetch("http://localhost:3000/User/register/likeAlert/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify([userOp, userAlerting]),
+
+    }).then (response => response.json ())
+    .then (data =>{
+        window.location.reload()
+        alert("You have matched with " + data + " !!")
     })
     .catch (err => {
             throw (err)
         
     });
-  
 }
-
-
 
 //update
 
