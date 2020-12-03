@@ -1,41 +1,18 @@
-const { match } = require("assert");
+
 const express = require ("express");
 const fs = require ("fs");
-const { Http2ServerRequest } = require("http2");
 const router = express.Router();
-const err = "Error"
+
 
 
     // variables
     const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
-   /*
-      // READ
-  
-      app.get('/Users/login', (req, res) => {
-        
-          fs.readdir(dataPath, (err, files) => {
-          if (err){throw err;} else{
-            files.forEach(file => {
-            fs.readFile(dataPath + file, (data) =>{
-                user = JSON.parse(data)
-             // for (value of Object.values(data))
-             if (user = req.body.signInUser){
-              res.status(200).send(console.log("sucess"))
-            } 
-          })
-          // login read file 
-        })
-      }
-    })
-  })
-
-       */
-
+   
 // check if disliked 
   router.post("/match", (req,res)=>{
 
     fs.readdir(dataPath, (err, files) => {
-     
+     if (err) throw (err)
        let sent = false;
 
         files.forEach(file => {
@@ -89,6 +66,7 @@ const err = "Error"
 
 router.post("/dislike", (req,res)=>{
 
+  
   let userDisLiked = req.body[1] //henter hver user den user der bliver disliked
 
   let userOperator = req.body[0].username //Den user der disliker
@@ -137,10 +115,36 @@ router.post("/like", (req,res)=>{
     evalUser.like = newArray
 
     fs.writeFileSync(dataPath + userDisLiked + ".json", JSON.stringify(evalUser))  //laver en ny fil med filnavnet som id'et tilføjet json hvor den lange string kommer ind 
+    res.json(evalUser)
+  })
+
+// Alert hvis man liker en der har liket en tilbage
+router.post ("/likeAlert", (req,res) => {
+  let userOp = req.body[0].username
+  let userToBeEvaluated = req.body[1]
+
+
+  let userMatchAlert = JSON.parse(fs.readFileSync(dataPath + userOp + ".json")) 
+
+  let likedBy = Object.values(userMatchAlert)
+  let likedByArray = likedBy[11];
+ 
+    let likedByUsers = []
+
+    for (i=0; likedByArray.length > i; i++){
+      if (userToBeEvaluated == likedByArray ){
+
+        likedByUsers.push(userToBeEvaluated)   
+         
+      } res.json(Object.values(likedByUsers))  
+    }; 
+       
 })
 
 
-    const User = require("../Models/Users.js");
+
+
+    const User = require("../Models/userModels.js");
     //Create
     router.post("/login", (req, res)=>{
       console.log(req.body)
@@ -187,24 +191,28 @@ router.post("/like", (req,res)=>{
       });
 
        
-       
-
     
       //Update
-      router.put('/Update', (req, res) => {
-        fs.readFileSync(dataPath + req.body.username + ".json", (err) => {
-          if (err) throw (err)
-          req.body.email,
-           req.body.password,
-           req.body.firstName,
-           req.body.lastName,
-           req.body.phone,
-           req.body.interest,
-           req.body.gender,
-           updatedUser = req.body.updatedUser
-           user = JSON.stringify(updatedUser)
+      router.put('/update', (req, res) => {
+        fs.readFileSync(dataPath + req.body[1].username + ".json", (err) => {
+          
+          const updatedUser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
+            newId = Date.now().toString(),
+             req.body[0].email,
+             req.body[0].username,
+             req.body[0].password,
+             req.body[0].firstName,
+             req.body[0].lastName,
+             req.body[0].phone,
+             req.body[0].interest,
+             req.body[0].dob,
+             req.body[0].gender,
+             [],
+             []
+          );
+         upUser = JSON.stringify(updatedUser)
          
-          fs.writeFile(dataPath + req.body.username + ".json", user, (err) => {
+          fs.writeFile(dataPath + req.body.username + ".json", upUser, (err) => {
             if (err) throw (err)
           });
         })

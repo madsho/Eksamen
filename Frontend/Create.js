@@ -3,15 +3,15 @@
 
 function saveData(){
 
-var firstname = document.getElementById ("firstname").value
-var lastname = document.getElementById ("lastname").value
-var email = document.getElementById ("email").value
-var phone = document.getElementById ("phone").value
-var signUpUser = document.getElementById ("signUsername").value
-var signUpPass = document.getElementById ("signPassword").value
-var interest = document.getElementById ("interest").value
-var dob = document.getElementById ("dob").value
-var gender = document.getElementById ("gender").value
+    let firstname = document.getElementById ("firstname").value
+    let lastname = document.getElementById ("lastname").value
+    let email = document.getElementById ("email").value
+    let phone = document.getElementById ("phone").value
+    let signUpUser = document.getElementById ("signUsername").value
+    let signUpPass = document.getElementById ("signPassword").value
+    let interest = document.getElementById ("interest").value
+    let dob = document.getElementById ("dob").value
+    let gender = document.getElementById ("gender").value
     
 
 const user = {

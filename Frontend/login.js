@@ -28,6 +28,8 @@ let loginInfo = {
     .catch (err => {
             console.log("cant log in")
             alert ("Username or passwoord is incorrect")
+            window.location = "Login.html"
+            throw (err)
     });
 
 }
