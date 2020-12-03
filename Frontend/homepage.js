@@ -11,7 +11,7 @@ function deleteProfile(){
     
     let userDelete = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     console.log(userDelete);
-    var username = JSON.parse(userDelete)
+    let username = JSON.parse(userDelete)
     console.log(username.username);
 
     fetch("http://localhost:3000/User/register/delete/",{
@@ -34,7 +34,7 @@ function deleteProfile(){
 //uge 38 vejl løsning // display af data
 document.addEventListener("DOMContentLoaded", function() {
     
-    var user = JSON.parse(localStorage.getItem('access granteded'))
+    let user = JSON.parse(localStorage.getItem('access granteded'))
     let table = document.getElementById("userTabel");
     let html = "";
   
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var userInt = JSON.parse(userInterest)
+    let userInt = JSON.parse(userInterest)
     //console.log(userInt.interest);
 
 
@@ -105,12 +105,12 @@ document.addEventListener("DOMContentLoaded", function() {
 function dislike(){
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var useroperator = JSON.parse(userInterest)
+    let useroperator = JSON.parse(userInterest)
     //console.log(userInt.interest);
     
     let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
     // console.log(userEval);
-    var userDisLiked = JSON.parse(userEvaluated)
+    let userDisLiked = JSON.parse(userEvaluated)
     // console.log(userDisLiked);
    
     fetch("http://localhost:3000/User/register/dislike/", {
@@ -130,12 +130,12 @@ function dislike(){
 function like(){
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var useroperator = JSON.parse(userInterest)
+    let useroperator = JSON.parse(userInterest)
     //console.log(userInt.interest);
    
     let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
    // console.log(userEval);
-    var userLiked = JSON.parse(userEvaluated)
+   let userLiked = JSON.parse(userEvaluated)
    // console.log(userDisLiked);
     
    
@@ -161,16 +161,16 @@ function like(){
 function updateProfile(){
     let userUpdate = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var userUp = JSON.parse(userUpdate)
+    let userUp = JSON.parse(userUpdate)
     //console.log(userInt.interest); 
 
-    var firstname = document.getElementById ("firstname").value
-    var lastname = document.getElementById ("lastname").value
-    var email = document.getElementById ("email").value
-    var phone = document.getElementById ("phone").value
-    var password = document.getElementById ("Password").value
-    var interest = document.getElementById ("interest").value
-    var gender = document.getElementById ("gender").value
+    let firstname = document.getElementById ("firstname").value
+    let lastname = document.getElementById ("lastname").value
+    let email = document.getElementById ("email").value
+    let phone = document.getElementById ("phone").value
+    let password = document.getElementById ("Password").value
+    let interest = document.getElementById ("interest").value
+    let gender = document.getElementById ("gender").value
         
     
     const user = {

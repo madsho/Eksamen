@@ -1,4 +1,4 @@
-const UserClass = require("../Models/Users")
+const UserClass = require("../Models/userModels")
 const userRoutes = require ("../app.js")
 
 function create_user (){

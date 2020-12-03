@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
     //console.log(userInterest);
-    var userInt = JSON.parse(userInterest)
+    let userInt = JSON.parse(userInterest)
     //console.log(userInt.interest);
 
 
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let userKeys = Object.keys(data);
         let userValues = Object.values(data);
         
-        var j = 0
+        let j = 0
     for (let i of userKeys) {
         html += "<tr><td>" + i + "</td><td>" + userValues[j] + "</td></tr>";
         j += 1

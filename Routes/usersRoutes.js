@@ -145,7 +145,7 @@ router.post("/like", (req,res)=>{
 })
 
 
-    const User = require("../Models/Users.js");
+    const User = require("../Models/userModels.js");
     //Create
     router.post("/login", (req, res)=>{
       console.log(req.body)
@@ -192,8 +192,6 @@ router.post("/like", (req,res)=>{
       });
 
        
-       
-
     
       //Update
       router.put('/update', (req, res) => {
