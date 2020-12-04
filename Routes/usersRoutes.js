@@ -49,33 +49,30 @@ const router = express.Router();
             });
         
       });
-
-      
       //Update
-      router.put('/update', (req, res) => {
-        fs.readFileSync(dataBase + req.body[1].username + ".json", (err) => {
-          
-          const updatedUser = new User( //henter fra Modelsmappen den model som en user sakl blive stored i Databasen
-            newId = Date.now().toString(),
-             req.body[0].email,
-             req.body[0].username,
-             req.body[0].password,
-             req.body[0].firstName,
-             req.body[0].lastName,
-             req.body[0].phone,
-             req.body[0].interest,
-             req.body[0].dob,
-             req.body[0].gender,
-             [],
-             []
-          );
-         upUser = JSON.stringify(updatedUser)
+      router.post('/update', (req, res) => {
+
+        let oldUser = JSON.parse(fs.readFileSync(dataBase + req.body.username + ".json"))
+
+        if (req.body.email.length >= 1) {
+          oldUser.email = req.body.email
+        }
+        if (req.body.password.length >= 1) {
+          oldUser.password = req.body.password
+        }
+        if (req.body.firstName.length >= 1) {
+          oldUser.firstName = req.body.firstName
+        }
+        if (req.body.lastName.length >= 1) {
+          oldUser.lastName = req.body.lastName
+        }
+        if (req.body.phone.length >= 1) {
+          oldUser.phone = req.body.phone
+        }
          
-          fs.writeFile(dataBase + req.body.username + ".json", upUser, (err) => {
-            if (err) throw (err)
-          });
-        })
-      });
+          fs.writeFileSync(dataBase + req.body.username + ".json", JSON.stringify(oldUser))
+          res.json(oldUser);
+      }); 
 
       // DELETE
     

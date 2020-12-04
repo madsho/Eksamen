@@ -160,8 +160,8 @@ function like(){
 
     }).then (response => response.json()) //handlels the promise
     .then (data =>{
-        matchedAlert(), //runs the like alert 
-        window.location.reload() // When the like button is pressed then the page is realoded so the Function above where it will shows a poteniel match is run again 
+        console.log(data)
+        matchedAlert() //runs the like alert 
         
     }).catch (err => {
             throw (err)
@@ -172,7 +172,6 @@ function like(){
 
 //Alert if match function
 function matchedAlert(){
-
     // The user is operating the website / the person liking 
     let userOp = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
     let userLiking = JSON.parse(userOp)//The data recived from localstorage is parsed
@@ -181,25 +180,18 @@ function matchedAlert(){
    let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
    let userLiked = JSON.parse(userEvaluated)  //The data recived from localstorage is parsed
     
-
-   // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    fetch("http://localhost:3000/Like/likeAlert/", {//specificed to /Like/likealert route at likeRoute.js
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify([userLiking, userLiked]), //Sends info gathered about the two users
-
-    }).then (response => response.json ()) 
-    .then (data =>{
-        if (data.length < 1){ //If-statement dertimening if the length of the array recived is above og below 1 
-        console.log("no match") // If below then the person hasn't liked you yet and therefore no alert 
-    }else{
-        alert("You have matched with " + Object.values(data) + " !!") //if above 1 then there is an alert as the person has liked you back
+   let likedByUsers = [] //an empty array 
+  
+   for (i=0; userLiking.like.length > i; i++){ // loop that runs through every user who has liked this person 
+     if (userLiked == userLiking.like[i]){ //If the user who likes this person has the persons username in their like object then... 
+       likedByUsers.push(userLiked) 
     }
-    })
-    .catch (err => {
-            throw (err)
-        
-    });
 }
+    if (likedByUsers.length < 1){ //If-statement dertimening if the length of the array recived is above og below 1 
+        console.log("no match") // If below then the person hasn't liked you yet and therefore no alert 
+        window.location.reload()
+    }else{
+        alert("You have matched with " + userLiked + " !!")//if above 1 then there is an alert as the person has liked you back
+            window.location.reload()
+        }
+    }

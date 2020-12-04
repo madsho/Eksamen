@@ -35,36 +35,8 @@ router.post("/", (req,res)=>{ //route "/" is used and a POST request
     })
 
 
-// ALERT IF USERS MATCH 
-  router.post ("/likeAlert", (req,res) => {//route "/likeAlert" is used and a POST request
-
-    let userOp = req.body[0].username//The user operating the site / liking. Here there is a lot of info so it's specified 
-
-    let userToBeEvaluated = req.body[1] // The user that is being liked. The only thins is username so no need to specify
-  
-  
-    let userMatchAlert = JSON.parse(fs.readFileSync(dataBase + userOp + ".json")) // reading and parsing the data found from the user who is being liked
-  
-    let likedBy = Object.values(userMatchAlert) //returning an array found on the objects with all the users who has liked this person the user is looking at 
-    let likedByArray = likedBy[11];//returning the properties found on idex 11 (like)
-   
-      let likedByUsers = [] //an empty array 
-  
-      for (i=0; likedByArray.length > i; i++){ // loop that runs through every user who has liked this person 
-        if (userToBeEvaluated == likedByArray ){ //If the user who likes this person has the persons username in their like object then... 
-  
-          likedByUsers.push(userToBeEvaluated)  //... the person who was liked is pushed into the empty array
-  
-        } res.json(likedByUsers)  //responds with the array if its empty or contains a name
-      }; 
-         
-  })
-
-
-
 
 //ENSURES THAT LIKED USERS OR DISLIKED USERS ARE NOT SHOWN AGAIN 
-
 
 router.post("/match", (req,res)=>{
 

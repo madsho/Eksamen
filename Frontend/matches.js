@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let userInfo = JSON.parse(user)//The data recived from localstorage is parsed
 
 
+
    // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("http://localhost:3000/Match/confirmMatch", { //show the route /Match/confirmMatch in matchRoutes.js
         method: "POST", //POST requests 

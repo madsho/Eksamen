@@ -12,18 +12,16 @@ function updateProfile(){
     let email = document.getElementById ("email").value
     let phone = document.getElementById ("phone").value
     let password = document.getElementById ("Password").value
-    let interest = document.getElementById ("interest").value
-    let gender = document.getElementById ("gender").value
-        
+
     
     const user = {
+            username: userUp.username,
             email: email,
             password : password,
             firstName: firstname,
             lastName: lastname,
-            phone: phone,
-            interest: interest,
-            gender: gender,
+            phone: phone
+            
     
         };
         console.log(user)
@@ -33,12 +31,16 @@ function updateProfile(){
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify([user, userUp]),
+            body: JSON.stringify(user),
             
-        })
+        }).then (response => response.json ())
+        .then(data =>{
+          localStorage.setItem ("access granteded", JSON.stringify(data)) //if the password and username is correct the users deatails are stored in the localstorage with the key "acces granted"
+
+      })
         .catch (err => {
-            throw (err),
-            window.location = "Login.html"
+            throw (err)
+            
         });
         
     }
