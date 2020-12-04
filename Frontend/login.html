@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!--Log in form with username and password-->
     <form id = "loginForm">
         <div id = "logIn">
             <p>Log in</p>
@@ -17,7 +18,8 @@
         <label>Password:</label></br> 
         <input name = "passUser" id="password" type="text" placeholder="Password"></br> 
     </br> 
-        <button id = "logInBut" type = "button" onclick="login()"> Log in  </button>
+        <button id = "logInBut" type = "button" onclick="login()"> Log in  </button> <!--buttons that run function in login.js-->
+        <button id = "logInBut" type = "button"> <a href="./Create.html">  Click me to create </br> an account here: </a>  </button> <!--if the user doesn't have an account the can create one here-->
         </div>
     </form>
     <script src="./login.js"></script>

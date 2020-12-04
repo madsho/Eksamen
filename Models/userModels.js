@@ -1,7 +1,9 @@
-  
-const express = require('express');
-const router = express.Router();
+//MODEL TO ARRANGE THE DATA WHEN A USER CREATES AN ACCOUNT
 
+//When using fetch it worked when this was added to the model file
+const express = require('express');
+
+//construtor is used so other types of classes can be made easily (payed users)
 class User { //Super class
     constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender, dislike, like){
         this.id = id

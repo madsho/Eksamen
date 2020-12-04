@@ -4,13 +4,13 @@ const fs = require ("fs");
 const router = express.Router();
 
 // variables
-const dataPath = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
+const dataBase = "./Database/" //indikere hvilken datapath som alle requests skal følge. Altså hvor databasen ligger 
    
 
 // Vise matches på view all matches tab
 router.post('/confirmMatch', (req, res) => {
         
-    fs.readdir(dataPath, (err, files) => {
+    fs.readdir(dataBase, (err, files) => {
       if (err) {console.log(err);}
 
       let sent = false;
@@ -21,7 +21,7 @@ router.post('/confirmMatch', (req, res) => {
 
       files.forEach(file => {
        
-          let userMatched = JSON.parse(fs.readFileSync(dataPath + file)) 
+          let userMatched = JSON.parse(fs.readFileSync(dataBase + file)) 
           let userMatchedValues = Object.values(userMatched) // får values fra 
           let userMatchedArray = userMatchedValues [11];
 
@@ -30,7 +30,7 @@ router.post('/confirmMatch', (req, res) => {
           for (i = 0; userMatchedArray.length > i; i++){
               liked = userMatchedArray[i]
              
-              if (userMatched.username = req.body.like && liked == req.body.username){
+              if (userMatched.username == req.body.like && liked == req.body.username){
                 allUserMatched.push(userMatched.firstName) 
                  }
           }
