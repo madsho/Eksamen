@@ -27,6 +27,7 @@ function deleteProfile(){
     body: JSON.stringify(username), //send the username which is used to find the correct file to delete
 
 }).then(() => {
+    return response.data,
     alert ("Your acount has been deleted") //alert to let the user know that thier account has been deleted 
     
  }).catch(err => { //Handles errors that could occur and display them in the console
@@ -34,7 +35,7 @@ function deleteProfile(){
  });
  window.location = "Create.hmtl"; //user is redirected to the create page
 }
-
+module.exports = deleteProfile()
 
 // 2 WHEN PAGE IS LOADED
 

@@ -81,6 +81,7 @@ const router = express.Router();
       fs.unlink(dataBase + username + ".json", (err) => {
         if (err){throw (err)
         } else{
+          res.json("Your profile has been deleted")
           console.log("Your profile has been deleted")
         }
       })
