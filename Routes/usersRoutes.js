@@ -1,7 +1,7 @@
 const express = require ("express");
 const router = express.Router();
 
-let user = require ("../Controller/userController")
+let user = require ("../Controller/userController");
    
     //login
     router.post("/login", user.loginUser);
@@ -10,7 +10,7 @@ let user = require ("../Controller/userController")
     //Update user
     router.post('/update', user.updateUser); 
     //Delte user
-    router.delete('/delete', user.deleteUser)
+    router.delete('/delete', user.deleteUser);
 
 //export to app.js
   module.exports = router; 

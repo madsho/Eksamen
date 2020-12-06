@@ -23,7 +23,7 @@ class User { //Super class
 };
 
 
-module.exports = User
+module.exports = User;
 //
 
 

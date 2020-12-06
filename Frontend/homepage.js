@@ -8,7 +8,7 @@
 function logOut(){
     window.localStorage.clear(); // clear the localstorage so the user has to log in to access the hompage again
     window.location = "Login.html"; // takes the user to the login page
-}
+};
 
 
 //Delete profile 
@@ -16,7 +16,7 @@ function deleteProfile(){
     
     let userDelete = window.localStorage.getItem("access granteded"); //Gets the information on who to delete by looking at who is logged in on the "access granted" key in localstorage
    
-    let username = JSON.parse(userDelete) //The data recived from localstorage is parsed
+    let username = JSON.parse(userDelete); //The data recived from localstorage is parsed
 
  // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("http://localhost:3000/User/delete/",{ //specificed to /User/delete route in usersRoutes.js
@@ -34,7 +34,7 @@ function deleteProfile(){
    console.error(err)
  });
  window.location = "Create.hmtl"; //user is redirected to the create page
-}
+};
 
 
 // 2 WHEN PAGE IS LOADED
@@ -42,7 +42,7 @@ function deleteProfile(){
 //Uge 38 vejl løsning 
 document.addEventListener("DOMContentLoaded", function() { //when the DOM/page is loaded then this function will run
     
-    let user = JSON.parse(localStorage.getItem("access granteded")) //Gets the information on who is logged in on the "access granted" key in localstorage. The values are parsed so they can be read and arranged in the table
+    let user = JSON.parse(localStorage.getItem("access granteded")); //Gets the information on who is logged in on the "access granted" key in localstorage. The values are parsed so they can be read and arranged in the table
     let table = document.getElementById("userTabel"); //Defines the table set up on homepage.html
     let html = ""; //Sets the variable html to and empty string so the table can be added onto this 
   
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() { //when the DOM/page i
 document.addEventListener("DOMContentLoaded", function() {//when the DOM/page is loaded then this function will run
     
     let userInterest = window.localStorage.getItem("access granteded"); //Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userInt = JSON.parse(userInterest) //The data recived from localstorage is parsed
+    let userInt = JSON.parse(userInterest); //The data recived from localstorage is parsed
 
     
  // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
@@ -113,11 +113,11 @@ function dislike(){
 
    // The user is operating the website 
     let userInterest = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let useroperator = JSON.parse(userInterest)//The data recived from localstorage is parsed
+    let useroperator = JSON.parse(userInterest);//The data recived from localstorage is parsed
 
     // the user who is being evaluated (disliked or liked)
     let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userDisLiked = JSON.parse(userEvaluated)  //The data recived from localstorage is parsed
+    let userDisLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
  
  // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("http://localhost:3000/Dislike/", {//specificed to /Dislike route at dislikeRoute.js
@@ -137,19 +137,19 @@ function dislike(){
         
     });
    
-}
+};
 
 //Like function 
 function like(){
    
      // The user is operating the website 
      let userInterest = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
-     let useroperator = JSON.parse(userInterest)//The data recived from localstorage is parsed
+     let useroperator = JSON.parse(userInterest);//The data recived from localstorage is parsed
  
    
     // the user who is being evaluated (disliked or liked)
     let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userLiked = JSON.parse(userEvaluated)  //The data recived from localstorage is parsed
+    let userLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
         
     // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("http://localhost:3000/Like/", {//specificed to /like route at likeRoute.js
@@ -168,31 +168,31 @@ function like(){
             throw (err)
     });
 
-}
+};
 
 
 //Alert if match function
 function matchedAlert(){
     // The user is operating the website / the person liking 
     let userOp = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userLiking = JSON.parse(userOp)//The data recived from localstorage is parsed
+    let userLiking = JSON.parse(userOp);//The data recived from localstorage is parsed
 
    // the user who is being evaluated (liked) who also liked back
    let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
-   let userLiked = JSON.parse(userEvaluated)  //The data recived from localstorage is parsed
+   let userLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
     
    let likedByUsers = [] //an empty array 
   
    for (i=0; userLiking.like.length > i; i++){ // loop that runs through every user who has liked this person 
      if (userLiked == userLiking.like[i]){ //If the user who likes this person has the persons username in their like object then... 
        likedByUsers.push(userLiked) 
-    }
-}
+    };
+};
     if (likedByUsers.length < 1){ //If-statement dertimening if the length of the array recived is above og below 1 
         console.log("no match") // If below then the person hasn't liked you yet and therefore no alert 
         window.location.reload()
     }else{
         alert("You have matched with " + userLiked + " !!")//if above 1 then there is an alert as the person has liked you back
             window.location.reload()
-        }
-    }
+        };
+    };

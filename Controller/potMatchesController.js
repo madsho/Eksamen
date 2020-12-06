@@ -4,58 +4,57 @@
 const express = require ("express");
 const fs = require ("fs");
 
-const dataBase = "./Database/" //Path to database
+const dataBase = "./Database/"; //Path to database
 
 exports.potentielMatch = (req, res) => {
     
     fs.readdir(dataBase, (err, files) => {
-        if (err) throw (err)
-          let sent = false;
-   //1 CONTROL IF USER ALREADY HAS BEEN DISLIKED
+        if (err) throw (err);
+          let evaluated = false;
+  
            files.forEach(file => {
    
-             let otherUser = JSON.parse(fs.readFileSync(dataBase + file))
-             //console.log(otherUser)
-             
-             if (sent == false){
+             let otherUser = JSON.parse(fs.readFileSync(dataBase + file));
+            
+
+        //1 CONTROL IF USER ALREADY HAS BEEN DISLIKED
+             if (evaluated == false){
                  
                if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
             
-                 let disLike = false;
+                 let disLiked = false;
    
-                 let otherUserValues = Object.values(otherUser) // får values fra 
+                 let otherUserValues = Object.values(otherUser); // får values fra 
                  let otherUserArray = otherUserValues [10]; // henviser specifikt til value 10
    
                  for (i = 0; otherUserArray.length > i; i++){
                       if(otherUserArray[i] == req.body.username){
-                disLike = true
+                        disLiked = true
          };
        };
        //2 CONTROL IF USER ALREADY HAS BEEN LIKED
-             if (sent == false){
+             if (evaluated == false){
                      
                if (otherUser.interest == req.body.gender && otherUser.gender == req.body.interest){
            
-                 let like = false;
+                 let liked = false;
    
-                 let otherUserValues = Object.values(otherUser) // får values fra 
+                 let otherUserValues = Object.values(otherUser); // får values fra 
                  let otherUserArray = otherUserValues [11]; // henviser specifikt til value 10
    
                  for (i = 0; otherUserArray.length > i; i++){
                      if(otherUserArray[i] == req.body.username){
-               like = true
+                      liked = true
          };
        };
-      if (disLike == false && like == false){
-           console.log(otherUser)
-           console.log("Match succeded")
-           res.json(otherUser)
-           sent = true
-               } 
-             }
-           }
-           }
-         }
-       })
-       })
-}
+      if (disLiked == false && liked == false){
+           res.json(otherUser);
+           evaluated = true;
+               };
+             };
+           };
+           };
+         };
+       });
+    });
+};

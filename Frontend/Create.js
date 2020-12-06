@@ -4,15 +4,15 @@
 function saveData(){
 
     //All the data that has been typed by the user is gathered and given varibles
-    let firstname = document.getElementById ("firstname").value
-    let lastname = document.getElementById ("lastname").value
-    let email = document.getElementById ("email").value
-    let phone = document.getElementById ("phone").value
-    let signUpUser = document.getElementById ("signUsername").value
-    let signUpPass = document.getElementById ("signPassword").value
-    let interest = document.getElementById ("interest").value
-    let dob = document.getElementById ("dob").value
-    let gender = document.getElementById ("gender").value
+    let firstname = document.getElementById ("firstname").value;
+    let lastname = document.getElementById ("lastname").value;
+    let email = document.getElementById ("email").value;
+    let phone = document.getElementById ("phone").value;
+    let signUpUser = document.getElementById ("signUsername").value;
+    let signUpPass = document.getElementById ("signPassword").value;
+    let interest = document.getElementById ("interest").value;
+    let dob = document.getElementById ("dob").value;
+    let gender = document.getElementById ("gender").value;
     
 //setting up the new user to be sent to the endpoint 
 const user = {
@@ -41,4 +41,4 @@ const user = {
         window.location = "Login.html"// when You have created an account you are redirected to the login page 
     });
     
-}
+};

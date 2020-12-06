@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // The user is operating the website / the person liking 
     let user = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userInfo = JSON.parse(user)//The data recived from localstorage is parsed
+    let userInfo = JSON.parse(user);//The data recived from localstorage is parsed
 
 
 
@@ -38,11 +38,13 @@ document.addEventListener("DOMContentLoaded", function() {
         
     }); 
 });
+
+
 function deleteMatch(){
 
-    let inputDelete = document.getElementById("deleteInput").value
+    let inputDelete = document.getElementById("deleteInput").value;
     let user = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
-    let userInfo = JSON.parse(user)//The data recived from localstorage is par
+    let userInfo = JSON.parse(user);  //The data recived from localstorage is par
     
     const userDelete = {
         userDel: inputDelete,
@@ -68,4 +70,4 @@ body: JSON.stringify(userDelete), //sends the users information to the endpoint
 
 });
 
-}
+};

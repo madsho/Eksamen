@@ -2,8 +2,8 @@
 
 function login(){
 
-    let username = document.getElementById ("username").value //getting the data put in by the user 
-let password = document.getElementById ("password").value
+    let username = document.getElementById ("username").value; //getting the data put in by the user 
+    let password = document.getElementById ("password").value;
 
  // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch("http://localhost:3000/User/login/", {
@@ -26,5 +26,5 @@ let password = document.getElementById ("password").value
             throw (err)
     });
 
-}
+};
 
