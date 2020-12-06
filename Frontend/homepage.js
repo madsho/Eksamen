@@ -26,14 +26,15 @@ function deleteProfile(){
     },
     body: JSON.stringify(username), //send the username which is used to find the correct file to delete
 
-}).then(() => {
-    return response.data,
-    alert ("Your acount has been deleted") //alert to let the user know that thier account has been deleted 
-    
+})
+.then (response => response.json ()) //A promise is returned and handled 
+    .then(data =>{
+    alert (data), //alert to let the user know that thier account has been deleted 
+    window.localStorage.clear() // clear the localstorage so the user has to log in to access the hompage again    
  }).catch(err => { //Handles errors that could occur and display them in the console
    console.error(err)
  });
- window.location = "Create.hmtl"; //user is redirected to the create page
+
 };
 
 
@@ -46,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() { //when the DOM/page i
     let table = document.getElementById("userTabel"); //Defines the table set up on homepage.html
     let html = ""; //Sets the variable html to and empty string so the table can be added onto this 
   
-    html += "<tr><td>" + "ID:" + "</td><td>" + user.id + "</td></tr>"; //Every row is added without a loop så the variables like and dislike is not shown
+     //Every row is added without a loop så the variables like and dislike are not shown
     html += "<tr><td>" + "Email:" + "</td><td>" + user.email + "</td></tr>";
     html += "<tr><td>" + "Username:" + "</td><td>" + user.username + "</td></tr>";
     html += "<tr><td>" + "Password:" + "</td><td>" + user.password + "</td></tr>";

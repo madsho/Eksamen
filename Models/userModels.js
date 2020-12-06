@@ -5,8 +5,7 @@ const express = require('express');
 
 //construtor is used so other types of classes can be made easily (payed users)
 class User { //Super class
-    constructor (id, email, username ,password, firstName, lastName, phone, interest, dob, gender, dislike, like){
-        this.id = id
+    constructor (email, username ,password, firstName, lastName, phone, interest, dob, gender, dislike, like){
         this.email = email
         this.username = username
         this.password = password

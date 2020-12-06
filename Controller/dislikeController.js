@@ -16,7 +16,7 @@ exports.dislike = (req, res) => {
       
   
       let oldUserValues = Object.values(evaluatedUser); //returning an array found on the objects
-      let oldValue = oldUserValues [10]; //returning the properties found on idex 10 (dislike) 
+      let oldValue = oldUserValues [9]; //returning the properties found on idex 10 (dislike) 
   
   
       let newArray = new Array (userOperator); //The username of the user disliking is made to an array

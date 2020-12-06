@@ -1,16 +1,20 @@
+//1 lOGIN
+//2 CREATE A USER
+//3 UPDATE A USER 
+//4 DELETE A USER
 const express = require ("express");
 const router = express.Router();
 
 let user = require ("../Controller/userController");
    
-    //login
+//1 lOGIN
     router.post("/login", user.loginUser);
-    //Create user 
+//2 CREATE A USER
     router.post('/', user.createUser);
-    //Update user
+//3 UPDATE A USER 
     router.post('/update', user.updateUser); 
-    //Delte user
+//4 DELETE A USER
     router.delete('/delete', user.deleteUser);
 
-//export to app.js
+
   module.exports = router; 

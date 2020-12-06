@@ -16,7 +16,7 @@ exports.like = (req, res) => {
       
   
       let oldUserValues = Object.values(evaluatedUser);//returning an array found on the objects
-      let oldValue = oldUserValues [11];//returning the properties found on idex 11 (like)
+      let oldValue = oldUserValues [10];//returning the properties found on idex 11 (like)
   
   
       let newArray = new Array (userOperator);//The username of the user disliking is made to an array
