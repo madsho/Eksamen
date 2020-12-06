@@ -35,7 +35,7 @@ function deleteProfile(){
  });
  window.location = "Create.hmtl"; //user is redirected to the create page
 }
-module.exports = deleteProfile()
+
 
 // 2 WHEN PAGE IS LOADED
 
