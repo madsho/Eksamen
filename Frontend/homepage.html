@@ -8,29 +8,28 @@
 </head>
 <body>
 
-<div id = "userData"> 
-    <table id = "userTabel">
-    </table>
-</div>
+        <!--All data of the user who logged in is displayed-->
+    <div id = "userData"> 
+        <table id = "userTabel">
+        </table>
+    </div>
+    <!--Button for logging out of the account, deleting the account and a button to enter the update page-->
+    <div id = "userOptions"> 
+        <button id="logOut" onclick= "logOut()" type = "button" > Log out </button>
+        <button id="signUpBut" onclick= "deleteProfile()" type = "button" > Delete </button>
+        <button id="signUpBut" type = "button"> <a href="./Update.html"> Update user </a> </button>
+    </div>
 
-<div id = "userOptions"> 
-    <button id="logOut" onclick= "logOut()" type = "button" > Log out </button>
-    <button id="signUpBut" onclick= "deleteProfile()" type = "button" > Delete </button>
-    <button id="signUpBut" type = "button"> <a href="./Update.html"> Update user </a> </button>
-</div>
+    <div id = "potenMatches"> 
+        <a> SHOW POTENTIEL MATCHES: </a> </br>   
+        <!--Table that displayed a profile of a potentiel match. -->
+        <table id="potMatch"></table></br><!--Doesn't contain personal info like password-->
+        <button id = "like" onclick="like()" type = "button"> Like </button> <!--Like that is liked to hompage.js-->
+        <button id = "dislike" onclick="dislike()" type = "button"> Dislike </button> <!--Disliked which is liked to hompage.js-->
+        <button id = "matches"  type = "button"> <a href="./matches.html"> Show all matches</a></button> <!--button to tak the user to a page with at list of all the users they have matched with-->
+    </div>
 
-<div id = "potenMatches"> 
- <a> SHOW POTENTIEL MATCHES: </a> </br>   
-
-    <table id="potMatch">
-    </table>
-</br>
-<button id = "like" onclick="like()" type = "button"> Like </button>
-<button id = "dislike" onclick="dislike()" type = "button"> Dislike </button>
-<button id = "matches"  type = "button"> <a href="./matches.html"> Show all matches</a></button>
-</div>
-
-<script src="./homepage.js"></script>
+    <script src="./homepage.js"></script>
     
 </body>
 </html>

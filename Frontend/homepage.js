@@ -1,45 +1,52 @@
+//1 LOGOUT AND DELETE
+//2 WHEN PAGE IS RELOADED
+//3 LIKE, DISLIKE AND ALERT WHEN MATCHED
 
-//logge ud 
+
+// 1 LOG OUT AND DELETE
+//Log out function
 function logOut(){
-    window.localStorage.clear();
-    window.location = "Create.html";
-}
+    window.localStorage.clear(); // clear the localstorage so the user has to log in to access the hompage again
+    window.location = "Login.html"; // takes the user to the login page
+};
 
 
-//delete profile 
+//Delete profile 
 function deleteProfile(){
     
-    let userDelete = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    console.log(userDelete);
-    let username = JSON.parse(userDelete)
-    console.log(username.username);
+    let userDelete = window.localStorage.getItem("access granteded"); //Gets the information on who to delete by looking at who is logged in on the "access granted" key in localstorage
+   
+    let username = JSON.parse(userDelete); //The data recived from localstorage is parsed
 
-    fetch("http://localhost:3000/User/register/delete/",{
-    method: 'DELETE',
+ // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch("http://localhost:3000/User/delete/",{ //specificed to /User/delete route in usersRoutes.js
+    method: 'DELETE', //specify which method to use 
     headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
     },
-    body: JSON.stringify(username),
+    body: JSON.stringify(username), //send the username which is used to find the correct file to delete
 
 }).then(() => {
-    console.log('deleted');
+    return response.data,
+    alert ("Your acount has been deleted") //alert to let the user know that thier account has been deleted 
     
- }).catch(err => {
+ }).catch(err => { //Handles errors that could occur and display them in the console
    console.error(err)
  });
- window.location = "Login.hmtl";
-}
+ window.location = "Create.hmtl"; //user is redirected to the create page
+};
 
 
-//uge 38 vejl løsning // display af data
-document.addEventListener("DOMContentLoaded", function() {
+// 2 WHEN PAGE IS LOADED
+
+//Uge 38 vejl løsning 
+document.addEventListener("DOMContentLoaded", function() { //when the DOM/page is loaded then this function will run
     
-    let user = JSON.parse(localStorage.getItem('access granteded'))
-    let table = document.getElementById("userTabel");
-    let html = "";
+    let user = JSON.parse(localStorage.getItem("access granteded")); //Gets the information on who is logged in on the "access granted" key in localstorage. The values are parsed so they can be read and arranged in the table
+    let table = document.getElementById("userTabel"); //Defines the table set up on homepage.html
+    let html = ""; //Sets the variable html to and empty string so the table can be added onto this 
   
- 
-    html += "<tr><td>" + "ID:" + "</td><td>" + user.id + "</td></tr>";
+    html += "<tr><td>" + "ID:" + "</td><td>" + user.id + "</td></tr>"; //Every row is added without a loop så the variables like and dislike is not shown
     html += "<tr><td>" + "Email:" + "</td><td>" + user.email + "</td></tr>";
     html += "<tr><td>" + "Username:" + "</td><td>" + user.username + "</td></tr>";
     html += "<tr><td>" + "Password:" + "</td><td>" + user.password + "</td></tr>";
@@ -50,39 +57,38 @@ document.addEventListener("DOMContentLoaded", function() {
     html += "<tr><td>" + "Date of Birth:" + "</td><td>" + user.dob + "</td></tr>";
     html += "<tr><td>" + "Your gender:" + "</td><td>" + user.gender + "</td></tr>";
 
-  table.innerHTML = html;
+  table.innerHTML = html; //the table constructed is exported to homepage.hml
 
 });
 
 
-//Viser potentiel match
-document.addEventListener("DOMContentLoaded", function() {
+//Show a user that can be liked og disliked = a potentiel user
+document.addEventListener("DOMContentLoaded", function() {//when the DOM/page is loaded then this function will run
     
-    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    //console.log(userInterest);
-    let userInt = JSON.parse(userInterest)
-    //console.log(userInt.interest);
+    let userInterest = window.localStorage.getItem("access granteded"); //Gets the information on who  is logged in on the "access granted" key in localstorage
+    let userInt = JSON.parse(userInterest); //The data recived from localstorage is parsed
 
-
-
-    fetch("http://localhost:3000/User/register/match/", {
-        method: "POST",
+    
+ // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch("http://localhost:3000/Potmatch/", {//specificed to /Potmatch route in potMatchesRoutes.js
+        method: "POST", //POST request
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(userInt),
+        body: JSON.stringify(userInt), // sends the parsed data to the endpoint
 
-    }).then (response => response.json ())
+    }).then (response => response.json ()) //A promise is returned and handled 
     .then(data =>{
-        console.log ("matched with", data);
-        let table = document.getElementById("potMatch");
-        localStorage.setItem("userEvaluated", JSON.stringify(data.username));
+        console.log ("matched with", data); 
+        let table = document.getElementById("potMatch"); //Get a predetermined table from homepage.html where the potentiel match will be shown
+        localStorage.setItem("userEvaluated", JSON.stringify(data.username)); //To know who is being shown and to future use when liking and disliking the username i stored i localstorage.
+        //OBS! The whole user is now stored else you would be able to see their password and private details
        
         let html = "";
 
 
     
-    html += "<tr><td>" + "Username:" + "</td><td>" + data.username + "</td></tr>";
+    html += "<tr><td>" + "Username:" + "</td><td>" + data.username + "</td></tr>"; // data is ad filed in. OBS! no sensitive og personel info 
     html += "<tr><td>" + "Firstname:" + "</td><td>" + data.firstName + "</td></tr>";
     html += "<tr><td>" + "Lastname:" + "</td><td>" + data.lastName + "</td></tr>";
     html += "<tr><td>" + "Interested in:" + "</td><td>" + data.interest + "</td></tr>";
@@ -90,149 +96,103 @@ document.addEventListener("DOMContentLoaded", function() {
     html += "<tr><td>" + "Gender:" + "</td><td>" + data.gender + "</td></tr>";
  
 
-  table.innerHTML = html;
-  
+  table.innerHTML = html; // Table is exported to hompage.html page
   
     })
     .catch (err => {
-            throw (err)
+            throw (err) // if any errors they will be shown
         
     }); 
 });
 
 
-//function dislike
+// 3 LIKING, DISLIKING AND ALERT WHEN MATCHED
+
+//Dislike
 function dislike(){
 
-   
-    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    //console.log(userInterest);
-    let useroperator = JSON.parse(userInterest)
-    //console.log(userInt.interest);
-    
-    let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
-    // console.log(userEval);
-    let userDisLiked = JSON.parse(userEvaluated)
-    // console.log(userDisLiked);
- 
+   // The user is operating the website 
+    let userInterest = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
+    let useroperator = JSON.parse(userInterest);//The data recived from localstorage is parsed
 
-    fetch("http://localhost:3000/User/register/dislike/", {
-        method: "POST",
+    // the user who is being evaluated (disliked or liked)
+    let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
+    let userDisLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
+ 
+ // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch("http://localhost:3000/Dislike/", {//specificed to /Dislike route at dislikeRoute.js
+        method: "POST", //POST request 
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify([useroperator, userDisLiked]),
+        body: JSON.stringify([useroperator, userDisLiked]), //Sends info gathered about the two users
 
-    }).then (response => response.json())
+    }).then (response => response.json()) //Handles the promise
     .then (data =>{
-        window.location.reload()
+        
     })
     .catch (err => {
-            throw(err)
+            throw(err),
+            window.location.reload() // When the dislike button is pressed then the page is realoded so the Function above where it will shows a poteniel match is run again 
         
     });
    
-}
+};
 
-//function for at kunne dislike
+//Like function 
 function like(){
    
-    let userInterest = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    //console.log(userInterest);
-    let useroperator = JSON.parse(userInterest)
-    //console.log(userInt.interest);
+     // The user is operating the website 
+     let userInterest = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
+     let useroperator = JSON.parse(userInterest);//The data recived from localstorage is parsed
+ 
    
-    let userEvaluated = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
-   // console.log(userEval);
-   let userLiked = JSON.parse(userEvaluated)
-   // console.log(userDisLiked);
-    
-   
-    fetch("http://localhost:3000/User/register/like/", {
-        method: "POST",
+    // the user who is being evaluated (disliked or liked)
+    let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
+    let userLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
+        
+    // fetch API is run https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API and https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    fetch("http://localhost:3000/Like/", {//specificed to /like route at likeRoute.js
+        method: "POST", //POST request
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify([useroperator, userLiked]),
+        body: JSON.stringify([useroperator, userLiked]), //Sends info gathered about the two users
 
-    }).then (response => response.json())
+    }).then (response => response.json()) //handlels the promise
     .then (data =>{
-        likeAlert()
+        console.log(data)
+        matchedAlert() //runs the like alert 
+        
     }).catch (err => {
             throw (err)
     });
 
-}
+};
 
-function likeAlert(){
 
-    let userLikeAlert = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    let userOp = JSON.parse(userLikeAlert)
- 
+//Alert if match function
+function matchedAlert(){
+    // The user is operating the website / the person liking 
+    let userOp = window.localStorage.getItem('access granteded');//Gets the information on who  is logged in on the "access granted" key in localstorage
+    let userLiking = JSON.parse(userOp);//The data recived from localstorage is parsed
 
-    let userCreateAlert = window.localStorage.getItem('userEvaluated'); // får vores LocalStorage Key
-    let userAlerting = JSON.parse(userCreateAlert)
+   // the user who is being evaluated (liked) who also liked back
+   let userEvaluated = window.localStorage.getItem('userEvaluated');//Gets the information on who  is logged in on the "access granted" key in localstorage
+   let userLiked = JSON.parse(userEvaluated);  //The data recived from localstorage is parsed
     
-
-
-    fetch("http://localhost:3000/User/register/likeAlert/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify([userOp, userAlerting]),
-
-    }).then (response => response.json ())
-    .then (data =>{
+   let likedByUsers = [] //an empty array 
+  
+   for (i=0; userLiking.like.length > i; i++){ // loop that runs through every user who has liked this person 
+     if (userLiked == userLiking.like[i]){ //If the user who likes this person has the persons username in their like object then... 
+       likedByUsers.push(userLiked) 
+    };
+};
+    if (likedByUsers.length < 1){ //If-statement dertimening if the length of the array recived is above og below 1 
+        console.log("no match") // If below then the person hasn't liked you yet and therefore no alert 
         window.location.reload()
-        alert("You have matched with " + data + " !!")
-    })
-    .catch (err => {
-            throw (err)
-        
-    });
-}
-
-//update
-
-function updateProfile(){
-    let userUpdate = window.localStorage.getItem('access granteded'); // får vores LocalStorage Key
-    //console.log(userInterest);
-    let userUp = JSON.parse(userUpdate)
-    //console.log(userInt.interest); 
-
-    let firstname = document.getElementById ("firstname").value
-    let lastname = document.getElementById ("lastname").value
-    let email = document.getElementById ("email").value
-    let phone = document.getElementById ("phone").value
-    let password = document.getElementById ("Password").value
-    let interest = document.getElementById ("interest").value
-    let gender = document.getElementById ("gender").value
-        
-    
-    const user = {
-            email: email,
-            password : password,
-            firstName: firstname,
-            lastName: lastname,
-            phone: phone,
-            interest: interest,
-            gender: gender,
-    
+    }else{
+        alert("You have matched with " + userLiked + " !!")//if above 1 then there is an alert as the person has liked you back
+            window.location.reload()
         };
-        console.log(user)
-    
-        fetch("http://localhost:3000/User/register/update", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify([user, userUp]),
-            
-        })
-        .catch (err => {
-            throw (err),
-            window.location = "Login.html"
-        });
-        
-    }
+    };

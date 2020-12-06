@@ -16,21 +16,25 @@ const userRoutes = require("./Routes/usersRoutes.js");
 const matchRoutes = require("./Routes/matchRoutes");
 const likeRoutes = require ("./Routes/likeRoutes");
 const dislikeRoutes = require ("./Routes/dislikeRoutes");
+const potMatch = require ("./Routes/potMatchesRoutes");
 
-app.get('/', (req, res) => {
-    res.send('We are live');
-  });
 
 //endpoints
-app.use ("/User/register", userRoutes);
+app.use ("/User", userRoutes);
 app.use ("/Match", matchRoutes);
-//app.use ("/Like", likeRoutes);
-//app.use ("/Dislike", dislikeRoutes);
+app.use ("/Like", likeRoutes);
+app.use ("/Dislike", dislikeRoutes);
+app.use ("/Potmatch", potMatch);
+
+app.get('/', (req, res) => {
+  res.send('We are live');
+});
+
 
 
 //CRUD Api-endpoints for users, interests and match
 
 
-const PORT = process.env.PORT || 3000 //Porten er på 5000 
+const PORT = process.env.PORT || 3000; //Porten er på 5000 
 
 app.listen(PORT, () => console.log(`Server is running http://localhost:${PORT}`));
